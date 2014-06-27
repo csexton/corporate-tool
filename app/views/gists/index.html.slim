@@ -1,0 +1,18 @@
+.page-actions
+  ul
+    li
+      a.button href=new_gist_path
+        => fa_icon 'plus'
+        | New Gist
+h1 All Gists
+.gists-row
+  .gists
+    ul
+      - @gists.each do |gist|
+        li
+          .title
+            a> href=gist_path(gist)
+              = gist.description
+          .status
+            => "Updated #{time_ago_in_words gist.updated_at} ago. Created by #{gist.user.name}."
+

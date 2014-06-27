@@ -1,0 +1,9 @@
+- sidebar_page = Page.find_by(path: 'sidebar')
+- if sidebar_page
+  = sidebar_page.html_body
+- else
+  h4 Add a Sidebar
+  p
+    | A sidebar is simply another wiki page. If you would like to add one
+      click <a href="#{new_page_path(path: "sidebar")}">here</a>
+

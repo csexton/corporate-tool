@@ -1,0 +1,13 @@
+- page = @page
+p#notice = notice
+
+- content_for :title do
+  = page.path
+p
+  .markdown
+    = render_page page
+.actions
+  .hidden-actions
+    ul
+      li
+        = link_to "#{fa_icon("pencil-square-o")} Edit".html_safe, edit_page_path(page), class: "button"

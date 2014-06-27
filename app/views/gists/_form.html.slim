@@ -1,0 +1,26 @@
+= form_for @gist do |f|
+  - if @gist.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@gist.errors.count, "error")} prohibited this gist from being saved:"
+      ul
+        - @gist.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.text_field :description, placeholder: 'Gist Description', class: 'initial-focus'
+  #gist_files
+    = f.fields_for :gist_files do |gist_file_fields|
+      .gist_file
+        .editor-container
+          .editor-meta
+            = gist_file_fields.select :file_type, %i(markdown ruby javascript sh json coffee coffee html css)
+          = gist_file_fields.text_area :body, class: :editor
+
+  .actions
+    ul
+      li
+        button type="submit"
+          => fa_icon 'save'
+          | Save
+      li
+        = link_to "#{fa_icon("trash-o")} Delete".html_safe, @gist, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "button danger"

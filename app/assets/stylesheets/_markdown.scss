@@ -1,0 +1,32 @@
+.markdown {
+  ul {
+    list-style-type: disc;
+  }
+  ol {
+    list-style: decimal;
+  }
+  li {
+
+    display: list-item;
+    margin-left: 30px;
+  }
+
+  pre {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    font-size: 13px;
+    line-height: 19px;
+    overflow: auto;
+    padding: 6px 10px;
+    border-radius: 3px;
+  }
+}
+
+
+.markdown .highlight pre, .hll, .highlighttable {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+

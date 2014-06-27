@@ -1,0 +1,26 @@
+textarea.editor {
+  height: 300px;
+}
+
+.ace_editor{
+  margin-top: 0px;
+  overflow: hidden;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+  font-size: 12px;
+  line-height: normal;
+  direction: ltr;
+}
+.editor-container {
+  border: 1px solid #ddd;
+  border-radius: $form-border-radius;
+  margin-bottom: 15px;
+}
+.editor-meta {
+  border-bottom: 1px solid #ddd;
+  padding: 3px;
+  background: #F6F6F6;
+  select {
+    margin-bottom: 2px;
+    font-size: 12px;
+  }
+}

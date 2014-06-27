@@ -1,0 +1,13 @@
+- gist = @gist
+p#notice = notice
+
+h2= gist.description
+- gist.gist_files.each do |gist_file|
+  div class="gist-file gist-file-type-#{gist_file.file_type}"
+    p
+      = render_gist gist_file
+
+.hidden-actions
+  ul
+    li
+      = link_to "#{fa_icon("pencil-square-o")} Edit".html_safe, edit_gist_path(gist), class: "button"

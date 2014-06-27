@@ -1,0 +1,32 @@
+doctype html
+html lang="en"
+  head
+    meta charset="utf-8"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    title Corporate Tool
+    = stylesheet_link_tag "application"
+    link rel="icon" type="image/x-icon" href=image_url("favicon.png")
+
+  body
+    #container
+      #content
+        .welcome-row
+          .welcome
+            .welcome-content
+              - flash.each do |name, msg|
+                = content_tag :div, msg, class: "flash-#{name}"
+              h1 Welcome
+              p You need to login to continue
+              a.button href="/auth/google" Login with Google Apps
+      footer
+        .footer-row
+          .footer-nav
+            ul
+              li
+                | This is a <a href="github.com/csexton/coprorate-tool">Corporate Tool</a> site.
+
+
+
+
+
+

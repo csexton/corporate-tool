@@ -1,0 +1,21 @@
+- page = @page
+
+= form_for page do |f|
+  - if page.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(page.errors.count, "error")} prohibited this page from being saved:"
+      ul
+        - page.errors.full_messages.each do |message|
+          li = message
+
+  = f.text_field :path, placeholder: "The path to the page. 'index' will go to #{request.base_url}/index"
+  .editor-container
+    = f.text_area :body, class: 'editor markdown'
+  .actions
+    ul
+      li
+        button type="submit"
+          => fa_icon 'save'
+          | Save
+      li
+        = link_to "#{fa_icon("trash-o")} Delete".html_safe, page, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "button danger"

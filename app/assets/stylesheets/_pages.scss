@@ -1,0 +1,27 @@
+// Place all the styles related to the pages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.page-actions {
+  float: right;
+}
+.pages {
+  li {
+    border-radius: 3px;
+    padding: 15px;
+    .title {
+      font-size: 24px;
+    }
+    .status {
+      font-size: 12px;
+    }
+    &:hover {
+      background: #fafafa;
+    }
+  }
+}
+.pages-row {
+}
+
+.page-row {
+  border-bottom: thin solid #eee;
+}

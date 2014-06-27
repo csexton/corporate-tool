@@ -1,0 +1,142 @@
+$footer-height: 60px;
+
+html, body {
+  margin:0;
+  padding:0;
+  height:100%;
+}
+#container {
+  min-height:100%;
+  position:relative;
+}
+
+#content {
+  padding:10px;
+  padding-bottom: $footer-height;
+  @include outer-container;
+  $mobile: new-breakpoint(max-width 500px 4);
+  .main {
+    @include span-columns(9);
+    @include media($mobile) {
+      @include span-columns(4);
+    }
+  }
+
+  aside {
+    @include span-columns(3);
+    @include media($mobile) {
+        @include span-columns(4);
+      }
+    }
+
+}
+
+header {
+  background-color: #f3f3f3;
+  background-image: linear-gradient(#f9f9f9, #f3f3f3);
+  background-repeat: repeat-x;
+  text-shadow: 0 1px 0 #fff;
+  border-bottom: 1px solid #e5e5e5;
+
+  .header-row {
+    @include outer-container;
+
+    .header-brand {
+      float: left;
+      img {
+        max-height: 25px;
+        padding-top: 5px;
+      }
+    }
+
+    .header-site {
+      float: left;
+      padding-top: 5px;
+      padding-left: 15px;
+      font-size: 18px;
+      line-height: 20px;
+      a {
+        color: black;
+      }
+    }
+
+    .header-nav {
+      float: right;
+      padding-top: 5px;
+      font-size: 12px;
+      line-height: 20px;
+    }
+  }
+}
+
+nav {
+  .nav-row {
+    @include outer-container;
+    .button-group {
+      float: right;
+      li {
+        display: inline-block;
+        font-size: 12px;
+        padding-left: 20px;
+      }
+    }
+  }
+}
+
+
+footer {
+  position:absolute;
+  padding-top: 20px;
+  bottom:0;
+  width:100%;
+  height:$footer-height;
+  .footer-row {
+    @include outer-container;
+    border-top: 1px solid #e5e5e5;
+  }
+  li {
+    display: inline-block;
+    padding: 0 20px;
+    font-size: 12px;
+  }
+}
+
+#error_explanation {
+  @extend %flash-error;
+}
+
+.field_with_errors {
+  input {
+    border: 1px solid #900;
+    &:hover, &:active, &:focus {
+      border: 1px solid #900;
+    }
+  }
+}
+
+.main {
+  &:hover {
+    .actions {
+      .hidden-actions {display: block}
+    }
+  }
+  .actions {
+    height:40px;
+    @include clearfix;
+    a {
+      margin: 2px;
+      &.button {
+        max-height: 35px;
+      }
+    }
+    ul {
+      li {
+        display: inline-block;
+      }
+    }
+    .hidden-actions {
+      display: none;
+    }
+  }
+}
+
