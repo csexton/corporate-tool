@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   def self.from_omniauth(auth)
+    binding.pry
     user = find_or_initialize_by auth.slice("provider", "uid")
     user.name = auth["info"]["name"]
     user.email = auth["info"]["email"]
