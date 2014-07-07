@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'Sign in via Google' do
   let!(:user) { User.create(name: "Amy Pond", uid: 1) }
 
-  scenario 'click login via facebook' do
+  scenario 'click login via google' do
     OmniAuth.config.test_mode = true
     OmniAuth.config.mock_auth[:google] = {
         'provider' => 'google',
