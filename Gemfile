@@ -16,6 +16,7 @@ gem 'github-markup', require: 'github/markup'
 gem 'pygments.rb'
 gem 'gemoji'
 
+gem 'nested_form'
 ## For HTML Pipeline
 #gem 'html-pipeline'
 #gem 'rinku'

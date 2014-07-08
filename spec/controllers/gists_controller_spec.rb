@@ -3,6 +3,12 @@ require 'rails_helper'
 RSpec.describe GistsController, type: :controller do
   let(:rory) {User.create!(name: 'Rory', uid: "1")}
   let(:valid_attributes) { { description: "Test Gist", } }
+  let(:valid_attributes_with_nested_gist_files) { { description: "Another Test", gist_files_attributes:
+                                                        {
+                                                          "0" => { file_type: 'ruby', body: 'puts "w00t"' },
+                                                          "1" => { file_type: 'ruby', body: 'array.pop'}
+                                                        }
+  } }
   let(:invalid_attributes) { { description: nil, } }
   let(:valid_session) { { user_id: rory.id} }
 
@@ -55,6 +61,14 @@ RSpec.describe GistsController, type: :controller do
       it "redirects to the created gist" do
         post :create, {gist: valid_attributes}, valid_session
         expect(response).to redirect_to(Gist.last)
+      end
+    end
+
+    describe "with valid params and nested gist_files" do
+      it "creates new gist files" do
+        expect {
+          post :create, {gist: valid_attributes_with_nested_gist_files}, valid_session
+        }.to change(GistFile, :count).by(2)
       end
     end
 

@@ -1,4 +1,4 @@
-= form_for @gist do |f|
+= nested_form_for @gist do |f|
   - if @gist.errors.any?
     #error_explanation
       h2 = "#{pluralize(@gist.errors.count, "error")} prohibited this gist from being saved:"
@@ -13,9 +13,14 @@
       .gist_file
         .editor-container
           .editor-meta
-            = gist_file_fields.select :file_type, %i(markdown ruby javascript sh json coffee coffee html css)
+            = gist_file_fields.select :file_type, %i(markdown ruby javascript sh json coffee html css)
           = gist_file_fields.text_area :body, class: :editor
-
+      = gist_file_fields.link_to_remove "Remove file"
+      br
+      br
+    = f.link_to_add "Add file", :gist_files
+    br
+    br
   .actions
     ul
       li
@@ -24,3 +29,11 @@
           | Save
       li
         = link_to "#{fa_icon("trash-o")} Delete".html_safe, @gist, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "button danger"
+
+javascript:
+  document.body.addEventListener("DOMNodeInserted", function(event){
+      var elementJustAdded = $(event.target);
+      if (elementJustAdded.hasClass('fields')) {
+          $('.editor').ace({lang: 'markdown', indent: 2, width: "100%", theme: "github"});
+      }
+  }, false);
