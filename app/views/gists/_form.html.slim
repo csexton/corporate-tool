@@ -13,14 +13,15 @@
       .gist_file
         .editor-container
           .editor-meta
-            = gist_file_fields.select :file_type, %i(markdown ruby javascript sh json coffee html css)
-          = gist_file_fields.text_area :body, class: :editor
-      = gist_file_fields.link_to_remove "Remove file"
-      br
-      br
-    = f.link_to_add "Add file", :gist_files
-    br
-    br
+            span.editor-header-name
+              = gist_file_fields.text_field :file_name, placeholder: "File Name"
+            span.editor-header-type
+              = gist_file_fields.select :file_type, %i(markdown ruby javascript sh json coffee html css)
+            span.editor-header-actions
+              = gist_file_fields.link_to_remove fa_icon(:times), title: 'Delete File'
+          = gist_file_fields.text_area :body, class: :editor, :'data-ace-lang' => "json"
+    = f.link_to_add "#{fa_icon("plus")} Add File".html_safe, :gist_files, class: :button
+  br
   .actions
     ul
       li
@@ -35,5 +36,11 @@ javascript:
       var elementJustAdded = $(event.target);
       if (elementJustAdded.hasClass('fields')) {
           $('.editor').ace({lang: 'markdown', indent: 2, width: "100%", theme: "github"});
+          $(event.srcElement).find('.editor-meta select').change(function(ev) {
+            var ace;
+            ace = $(ev.target).closest('.editor-container').find('.editor').data('ace');
+            return ace.editor.ace.getSession().setMode("ace/mode/" + ev.target.value);
+          });
+
       }
   }, false);
