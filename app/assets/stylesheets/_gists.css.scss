@@ -16,3 +16,13 @@
     }
   }
 }
+
+.gist-file {
+  border: 1px solid #ccc;
+  margin: 0 0 20px 0;
+  border-radius: $form-border-radius;
+}
+.gist-file-name {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+  font-size: 12px;
+}

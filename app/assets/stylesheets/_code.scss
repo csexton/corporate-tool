@@ -1,8 +1,9 @@
+table.highlighttable {
+  margin: 0;
+}
 .highlighttable {
   background-color: white;
-  border: 1px solid #ccc;
   padding: 6px 10px;
-  border-radius: 3px;
   table {
     border-collapse: collapse;
     margin: ($base-line-height / 2) 0;
