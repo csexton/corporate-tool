@@ -31,16 +31,20 @@
       li
         = link_to "#{fa_icon("trash-o")} Delete".html_safe, @gist, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "button danger"
 
-javascript:
-  document.body.addEventListener("DOMNodeInserted", function(event){
-      var elementJustAdded = $(event.target);
-      if (elementJustAdded.hasClass('fields')) {
-          $('.editor').ace({lang: 'markdown', indent: 2, width: "100%", theme: "github"});
-          $(event.srcElement).find('.editor-meta select').change(function(ev) {
-            var ace;
-            ace = $(ev.target).closest('.editor-container').find('.editor').data('ace');
-            return ace.editor.ace.getSession().setMode("ace/mode/" + ev.target.value);
-          });
+coffee:
+  document.body.addEventListener "DOMNodeInserted", ((event) ->
+    elementJustAdded = jQuery(event.target)
+    if elementJustAdded.hasClass("fields")
+      jQuery(".editor").ace
+        lang: "markdown"
+        indent: 2
+        width: "100%"
+        theme: "github"
 
-      }
-  }, false);
+      jQuery(event.srcElement).find(".editor-meta select").change (ev) ->
+        ace = undefined
+        ace = jQuery(ev.target).closest(".editor-container").find(".editor").data("ace")
+        ace.editor.ace.getSession().setMode "ace/mode/" + ev.target.value
+
+    return
+  ), false
