@@ -19,7 +19,7 @@
               = gist_file_fields.select :file_type, %i(markdown ruby javascript sh json coffee html css)
             span.editor-header-actions
               = gist_file_fields.link_to_remove fa_icon(:times), title: 'Delete File'
-          = gist_file_fields.text_area :body, class: :editor, :'data-ace-lang' => "json"
+          = gist_file_fields.text_area :body, class: :editor, :'data-ace-lang' => "#{gist_file_fields.object.file_type}"
     = f.link_to_add "#{fa_icon("plus")} Add File".html_safe, :gist_files, class: :button
   br
   .actions
