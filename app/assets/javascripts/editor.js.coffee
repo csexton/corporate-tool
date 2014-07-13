@@ -4,7 +4,7 @@
 
 jQuery ->
   jQuery('.editor').ace({ theme: 'github', lang: 'markdown', width: '100%', indent: 2 })
-  jQuery('.editor-meta select').change event, ->
+  jQuery('.editor-meta select').change (event) ->
     ace = jQuery(event.srcElement)
       .closest('.editor-container')
       .find('.editor')
@@ -13,7 +13,7 @@ jQuery ->
   jQuery('.initial-focus').focus()
 
   # For the nested form.
-  document.body.addEventListener "DOMNodeInserted", ((event) ->
+  document.addEventListener "DOMNodeInserted", ((event) ->
     elementJustAdded = jQuery(event.target)
     if elementJustAdded.hasClass("fields")
       jQuery(".editor").ace
