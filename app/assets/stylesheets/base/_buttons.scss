@@ -1,4 +1,5 @@
 // Thanks github.
+
 button,
 a.button,
 input[type="submit"] {
@@ -29,7 +30,6 @@ input[type="submit"] {
   height: 35px;
   font-size: 13px;
   &:hover {
-
     text-decoration: none;
     background-color: #dddddd;
     background-image: -webkit-linear-gradient(#eee, #ddd);
@@ -65,5 +65,8 @@ input[type="submit"] {
       border-color: #cd504a;
     }
   }
+}
 
+button {
+  margin: 0!important;
 }

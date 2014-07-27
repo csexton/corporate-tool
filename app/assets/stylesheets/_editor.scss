@@ -16,11 +16,48 @@ textarea.editor {
   margin-bottom: 15px;
 }
 .editor-meta {
+  height: 33px;
   border-bottom: 1px solid #ddd;
-  padding: 3px;
   background: #F6F6F6;
+            @include clearfix;
   select {
     margin-bottom: 2px;
     font-size: 12px;
   }
+  .editor-header-type {
+    float: left;
+    padding: 5px;
+  }
+  .editor-header-name {
+    float: left;
+    padding: 0;
+    border-right: thin solid #ddd;
+    input[type="text"], input[type="text"]:focus {
+      height: 32px;
+      border-radius: $form-border-radius 0 0 0;
+      border: none;
+      margin: 0;
+      padding: 4px 8px;
+      box-shadow: none;
+      outline: none;
+      font-size: 12px;
+      background-color: #F6F6F6;
+    }
+
+    input[type="text"]:focus {
+      background-color: white;
+    }
+  }
+  .editor-header-actions {
+    float: right;
+    padding: 4px 8px;
+    border-left: thin solid #ddd;
+    a {
+      color: #ddd;
+      &:hover {
+        color: #900;
+      }
+    }
+  }
 }
+

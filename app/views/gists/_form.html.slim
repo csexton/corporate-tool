@@ -9,18 +9,19 @@
   .field
     = f.text_field :description, placeholder: 'Gist Description', class: 'initial-focus'
   #gist_files
-    = f.fields_for :gist_files do |gist_file_fields|
+    = f.fields_for :gist_files, class: 'joeXXX'  do |gist_file_fields|
       .gist_file
         .editor-container
           .editor-meta
-            = gist_file_fields.select :file_type, %i(markdown ruby javascript sh json coffee html css)
-          = gist_file_fields.text_area :body, class: :editor
-      = gist_file_fields.link_to_remove "Remove file"
-      br
-      br
-    = f.link_to_add "Add file", :gist_files
-    br
-    br
+            span.editor-header-name
+              = gist_file_fields.text_field :file_name, placeholder: "File Name"
+            span.editor-header-type
+              = gist_file_fields.select :file_type, %i(markdown ruby javascript sh json coffee html css)
+            span.editor-header-actions
+              = gist_file_fields.link_to_remove fa_icon(:times), title: 'Delete File'
+          = gist_file_fields.text_area :body, class: :editor, :'data-ace-lang' => "#{gist_file_fields.object.file_type}"
+    = f.link_to_add "#{fa_icon("plus")} Add File".html_safe, :gist_files, class: :button
+  br
   .actions
     ul
       li
@@ -30,10 +31,3 @@
       li
         = link_to "#{fa_icon("trash-o")} Delete".html_safe, @gist, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "button danger"
 
-javascript:
-  document.body.addEventListener("DOMNodeInserted", function(event){
-      var elementJustAdded = $(event.target);
-      if (elementJustAdded.hasClass('fields')) {
-          $('.editor').ace({lang: 'markdown', indent: 2, width: "100%", theme: "github"});
-      }
-  }, false);

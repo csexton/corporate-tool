@@ -124,7 +124,6 @@ footer {
     height:40px;
     @include clearfix;
     a {
-      margin: 2px;
       &.button {
         max-height: 35px;
       }
@@ -132,6 +131,7 @@ footer {
     ul {
       li {
         display: inline-block;
+        margin-right: 5px;
       }
     }
     .hidden-actions {
