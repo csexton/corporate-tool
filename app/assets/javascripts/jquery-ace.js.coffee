@@ -1,5 +1,8 @@
 window.jQueryAce =
   initialize: (element, options) ->
+    if $(element).data('ace-lang')
+      options.lang = $(element).data('ace-lang')
+
     klass = switch true
       when $(element).is('textarea')
         jQueryAce.TextareaEditor

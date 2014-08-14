@@ -72,6 +72,6 @@ class GistsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def gist_params
-      params.require(:gist).permit(:description, :gist_files_attributes => [:id, :file_type, :body, :_destroy])
+      params.require(:gist).permit(:description, :gist_files_attributes => [:id, :file_type, :file_name, :body, :_destroy])
     end
 end
