@@ -40,6 +40,7 @@ header {
 
   .header-row {
     @include outer-container;
+    padding: 0 5px;
 
     .header-brand {
       float: left;
@@ -72,6 +73,7 @@ header {
 nav {
   .nav-row {
     @include outer-container;
+    padding: 0 5px;
     .button-group {
       float: right;
       li {
