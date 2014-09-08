@@ -17,6 +17,7 @@
     "SITE_NAME": {
       "description": "Display Name of the site.",
       "value": "Coprorate Tool",
+      "required": false
     },
     "GOOGLE_CLIENT_ID": {
       "description": "Google OAuth Client ID",
