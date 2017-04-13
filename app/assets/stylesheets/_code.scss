@@ -2,11 +2,12 @@ table.highlighttable {
   margin: 0;
 }
 .highlighttable {
-  background-color: white;
+    padding: 5px;
   padding: 6px 10px;
+    font-weight: 100;
   table {
     border-collapse: collapse;
-    margin: ($base-line-height / 2) 0;
+    margin: 10px;
     table-layout: fixed;
     width: 100%;
   }
@@ -22,11 +23,12 @@ table.highlighttable {
     border-bottom: none;
     padding: 0;
   &.linenos {
-    padding: 0 4px;
+    padding: 4px;
     text-align: right;
     width: 40px;
-    color: #999;
-    background: #f7f7f7;
+    pre {
+      color: #AAA;
+    }
   }
   &.code {
     padding: 0 4px;
@@ -34,6 +36,10 @@ table.highlighttable {
   }
   tr, td, th {
     vertical-align: middle;
+  }
+
+  pre {
+    font-size: 80%;
   }
 }
 

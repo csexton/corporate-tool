@@ -1,18 +1,16 @@
-.page-actions
-  ul
-    li
-      a.button href=new_page_path
-        => fa_icon 'plus'
-        | New Page
 h1 All Wiki Pages
 
 .pages-row
   .pages
-    ul
+    table.table
+      tr
+        thead
+          td Path
+          td Last Updated
       - @pages.each do |page|
-        li
-          .title
-            = link_to page.path, page_path(page)
-          .status
-            => "Updated #{time_ago_in_words page.updated_at} ago"
+        tr
+          td
+            = link_to "/" + page.path, page_path(page)
+          td
+            = "#{time_ago_in_words page.updated_at} ago"
 

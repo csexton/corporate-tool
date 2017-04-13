@@ -1,6 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe PagesController, type: :controller do
+RSpec.describe "Pages", :type => :request do
+  describe "GET /pages" do
+    it "redirects when unauthenticated" do
+      get pages_path
+      expect(response.status).to be(302)
+    end
+  end
+
   let(:rory) {User.create!(name: 'Rory', uid: "1")}
   let(:valid_attributes) { { path: 'path/to/page', body: 'I am **content**' } }
   let(:invalid_attributes) { { path: 'bad_page', body: nil} }
@@ -8,64 +15,60 @@ RSpec.describe PagesController, type: :controller do
 
   describe "GET index" do
     it "assigns all pages as @pages" do
+      sign_in rory
       page = Page.create! valid_attributes
-      get :index, {}, valid_session
-      expect(assigns(:pages)).to eq([page])
+      get pages_path
+      expect(response.body).to include("All Wiki Pages")
     end
   end
 
   describe "GET show" do
     it "assigns the requested page as @page" do
+      sign_in rory
       page = Page.create! valid_attributes
-      get :show, {id: page.to_param}, valid_session
-      expect(assigns(:page)).to eq(page)
+      get page_path(page)
+      expect(response.body).to include("I am")
     end
   end
 
   describe "GET new" do
     it "assigns a new page as @page" do
-      get :new, {}, valid_session
-      expect(assigns(:page)).to be_a_new(Page)
+      sign_in rory
+      get new_page_path
+      expect(response.body).to include("Path to the page")
     end
   end
 
   describe "GET edit" do
     it "assigns the requested page as @page" do
+      sign_in rory
       page = Page.create! valid_attributes
-      get :edit, {id: page.to_param}, valid_session
-      expect(assigns(:page)).to eq(page)
+      get edit_page_path(page)
+      expect(response.body).to include("Path to the page")
     end
   end
 
   describe "POST create" do
     describe "with valid params" do
       it "creates a new Page" do
+        sign_in rory
         expect {
-          post :create, {page: valid_attributes}, valid_session
+          post pages_path, params: {page: valid_attributes}
         }.to change(Page, :count).by(1)
       end
 
-      it "assigns a newly created page as @page" do
-        post :create, {page: valid_attributes}, valid_session
-        expect(assigns(:page)).to be_a(Page)
-        expect(assigns(:page)).to be_persisted
-      end
-
       it "redirects to the created page" do
-        post :create, {page: valid_attributes}, valid_session
+        sign_in rory
+        post pages_path, params: {page: valid_attributes}
         expect(response).to redirect_to(Page.last)
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved page as @page" do
-        post :create, {page: invalid_attributes}, valid_session
-        expect(assigns(:page)).to be_a_new(Page)
-      end
-
-      it "re-renders the 'new' template" do
-        post :create, {page: invalid_attributes}, valid_session
-        expect(response).to render_template("new")
+        sign_in rory
+        post pages_path, params: {page: invalid_attributes}
+        expect(response.body).to include("Body can&#39;t be blank")
       end
     end
   end
@@ -75,51 +78,44 @@ RSpec.describe PagesController, type: :controller do
       let(:new_attributes) { {path: 'new/path'} }
 
       it "updates the requested page" do
+        sign_in rory
         page = Page.create! valid_attributes
-        put :update, {id: page.to_param, page: new_attributes}, valid_session
+        put page_path(page), params: {page: new_attributes}
         page.reload
         expect(page.path).to eq('new/path')
       end
 
-      it "assigns the requested page as @page" do
-        page = Page.create! valid_attributes
-        put :update, {id: page.to_param, page: valid_attributes}, valid_session
-        expect(assigns(:page)).to eq(page)
-      end
-
       it "redirects to the page" do
+        sign_in rory
         page = Page.create! valid_attributes
-        put :update, {id: page.to_param, page: valid_attributes}, valid_session
+        put page_path(page), params: {page: new_attributes}
         expect(response).to redirect_to(page)
       end
     end
 
     describe "with invalid params" do
       it "assigns the page as @page" do
+        sign_in rory
         page = Page.create! valid_attributes
-        put :update, {id: page.to_param, page: invalid_attributes}, valid_session
-        expect(assigns(:page)).to eq(page)
-      end
-
-      it "re-renders the 'edit' template" do
-        page = Page.create! valid_attributes
-        put :update, {id: page.to_param, page: invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
+        put page_path(page), params: {page: invalid_attributes}
+        expect(response.body).to include("Body can&#39;t be blank")
       end
     end
   end
 
   describe "DELETE destroy" do
     it "destroys the requested page" do
+      sign_in rory
       page = Page.create! valid_attributes
       expect {
-        delete :destroy, {id: page.to_param}, valid_session
+        delete page_path(page)
       }.to change(Page, :count).by(-1)
     end
 
     it "redirects to the pages list" do
+      sign_in rory
       page = Page.create! valid_attributes
-      delete :destroy, {id: page.to_param}, valid_session
+      delete page_path(page)
       expect(response).to redirect_to(pages_url)
     end
   end

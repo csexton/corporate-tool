@@ -13,6 +13,16 @@
 //= require modernizr
 //= require jquery
 //= require jquery_ujs
+//
+//= require bootstrap/util
+//= require bootstrap/alert
+//= require bootstrap/button
+//= require bootstrap/carousel
+//= require bootstrap/collapse
+//= require bootstrap/dropdown
+//= require bootstrap/modal
+//= require bootstrap/scrollspy
+//= require bootstrap/tab
 
 //= require ace-builds/src-noconflict/ace
 //= require ace-builds/src-noconflict/theme-github

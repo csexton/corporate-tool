@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe WelcomeController, type: :controller do
+RSpec.describe "Welcome", :type => :request do
 
   describe "GET 'auth'" do
     it "returns http success" do
-      get 'auth', {}, { user_id: nil}
+      get welcome_auth_path
       expect(response).to be_success
     end
   end

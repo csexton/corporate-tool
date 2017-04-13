@@ -1,68 +1,113 @@
+/doctype html
+/html lang="en"
+/  head
+/    meta charset="utf-8"
+/    meta name="viewport" content="width=device-width, initial-scale=1.0"
+/
+/    title == content_for?(:title) ? yield(:title) : "Untitled"
+/
+/    = stylesheet_link_tag "application"
+/    = javascript_include_tag "application"
+/
+/    link rel="icon" type="image/x-icon" href=image_url("favicon.png")
+/
+/    = csrf_meta_tag
+/
+/  body
+/    #container
+/      header
+/        .header-row
+/          .header-brand
+/            a href="/"
+/              = image_tag 'logo.png', class: 'logo'
+/          .header-site
+/            a href="/"
+/              = ENV["SITE_NAME"] || "Corporate Tool"
+/          .header-nav
+/            - if current_user
+/              | Signed in as #{current_user.name}
+/              a< href=signout_path
+/                = fa_icon "sign-out"
+/
+/      nav
+/        .nav-row
+/          ul.button-group
+/            li
+/              a href="/"
+/                | Wiki
+/            li
+/              a href=new_page_path
+/                | New Page
+/            li
+/              a href=new_gist_path
+/                | New Gist
+/      #content
+/        .main
+/          ==yield
+/        aside
+/          = render "sidebar"
+/      footer
+/        .footer-row
+/          .footer-nav
+/            ul
+/              li
+/                | This is a <a href="github.com/csexton/coprorate-tool">Corporate Tool</a>.
+/              li
+/                = fa_icon 'wrench'
+/              li
+/                a href=root_path
+/                  | Home
+/              li
+/                a href=pages_path
+/                  | List Pages
+/              li
+/                a href=gists_path
+/                  | List Gists
+
+
+
+
 doctype html
 html lang="en"
   head
-    meta charset="utf-8"
-    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    meta charset="utf-8" /
+    meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" /
 
     title == content_for?(:title) ? yield(:title) : "Untitled"
-
     = stylesheet_link_tag "application"
     = javascript_include_tag "application"
-
     link rel="icon" type="image/x-icon" href=image_url("favicon.png")
-
     = csrf_meta_tag
-
   body
-    #container
-      header
-        .header-row
-          .header-brand
-            a href="/"
-              = image_tag 'logo.png', class: 'logo'
-          .header-site
-            a href="/"
-              = ENV["SITE_NAME"] || "Corporate Tool"
-          .header-nav
-            - if current_user
-              | Signed in as #{current_user.name}
-              a< href=signout_path
-                = fa_icon "sign-out"
+    == render "navbar"
 
-      nav
-        .nav-row
-          ul.button-group
-            li
-              a href="/"
-                | Wiki
-            li
-              a href=new_page_path
-                | New Page
-            li
-              a href=new_gist_path
-                | New Gist
-      #content
-        .main
-          ==yield
-        aside
-          = render "sidebar"
-      footer
-        .footer-row
-          .footer-nav
-            ul
-              li
-                | This is a <a href="github.com/csexton/coprorate-tool">Corporate Tool</a>.
-              li
-                = fa_icon 'wrench'
-              li
-                a href=root_path
-                  | Home
-              li
-                a href=pages_path
-                  | List Pages
-              li
-                a href=gists_path
-                  | List Gists
+    .container
+      .row.row-offcanvas.row-offcanvas-right
+        .main.col-12.col-md-9
+          - flash.each do |type, message|
+            .alert class=bootstrap_class_for(type) role="alert"
+              = message
+
+          == yield
+        #sidebar.col-6.col-md-3.sidebar-offcanvas
+          == render "sidebar"
+
+    footer.footer
+      .container
+        ul
+          li
+            a href="//github.com/csexton/coprorate-tool"
+              = image_tag 'logo.png', class: 'logo', style: "max-height: 20px;"
+          li
+            a href=root_path
+              | Home
+          li
+            a href=pages_path
+              | List Pages
+          li
+            a href=gists_path
+              | List Gists
+
 
 
 

@@ -1,5 +1,5 @@
 class GistsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_gist, only: [:show, :edit, :update, :destroy]
 
   # GET /gists

@@ -1,14 +1,11 @@
-- gist = @gist
-p#notice = notice
-
-h2= gist.description
-- gist.gist_files.reverse.each do |gist_file|
-  .gist-file-name
-    = gist_file.file_name
+h2 = @gist.description
+- @gist.gist_files.reverse.each do |gist_file|
   div class="gist-file gist-file-type-#{gist_file.file_type}"
+    - unless gist_file.file_name.empty?
+      .gist-file-name
+        = gist_file.file_name
     = render_gist gist_file
 
-.hidden-actions
-  ul
-    li
-      = link_to "#{fa_icon("pencil-square-o")} Edit".html_safe, edit_gist_path(gist), class: "button"
+.actions
+  small
+    = link_to fa_icon("pencil-square-o", text: "Edit Gist"), edit_gist_path(@gist), class: "btn btn-sm btn-secondary"

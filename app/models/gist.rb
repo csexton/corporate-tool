@@ -3,4 +3,8 @@ class Gist < ActiveRecord::Base
   has_many :gist_files
   accepts_nested_attributes_for :gist_files
   validates_presence_of :description
+
+  def user_name
+    user&.name || "Nobody"
+  end
 end

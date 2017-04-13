@@ -1,13 +1,12 @@
 source 'https://rubygems.org'
 source 'https://rails-assets.org'
 
-gem 'rails', '4.1.1'
-gem 'thin'
+gem 'rails', '5.0.2'
 gem 'pg'
-#gem 'paper_trail', '~> 3.0.2'
+gem 'puma'
+gem 'redis'
 
 gem 'font-awesome-rails'
-gem 'quiet_assets'
 gem 'slim-rails'
 gem 'rails_12factor',   group: :production
 
@@ -27,16 +26,13 @@ gem 'nested_form'
 
 gem "omniauth-google-oauth2"
 
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder', '~> 2.5'
 
-gem 'bourbon'
-gem 'neat'
-gem 'bitters'
-gem 'refills'
+gem 'bootstrap', '~> 4.0.0.alpha6'
 
 gem 'rails-assets-ace-builds'
 
@@ -51,8 +47,7 @@ group :development, :test do
   gem 'capybara'
   gem 'launchy'
   gem 'pry-rails'
-  #gem 'pry-byebug'
-  #gem 'pry-stack_explorer'
+  gem 'pry-byebug'
   gem 'database_cleaner'
 end
 

@@ -8,7 +8,7 @@
   margin-top: 60px;
   border-radius: 3px;
   .flash-notice {
-    @extend %flash-error;
+    //@extend %flash-error;
     border-radius: 3px;
   }
 }

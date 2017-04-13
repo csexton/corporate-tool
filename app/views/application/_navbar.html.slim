@@ -1,0 +1,19 @@
+.bg-inverse
+  .container
+    nav.navbar.navbar-toggleable-md.navbar-inverse.bg-inverse.mb-4
+      button.navbar-toggler.navbar-toggler-right aria-controls="navbarCollapse" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarCollapse" data-toggle="collapse" type="button"
+        span.navbar-toggler-icon
+      a.navbar-brand href="/"
+        = ENV["SITE_NAME"] || "Corporate Tool"
+      #navbarCollapse.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item class=active_if("welcome")
+            a.nav-link href=root_path
+              | Home
+          li.nav-item class=active_if("pages/new")
+            a.nav-link href=new_page_path New Page
+          li.nav-item class=active_if("gists")
+            a.nav-link href=new_gist_path New Gist
+        ul.navbar-nav
+          li.nav-item
+            a.nav-link href=signout_path Sign Out

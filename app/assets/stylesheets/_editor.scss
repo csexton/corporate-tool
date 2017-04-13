@@ -12,17 +12,18 @@ textarea.editor {
 }
 .editor-container {
   border: 1px solid #ddd;
-  border-radius: $form-border-radius;
+  border-radius: 0.25rem;
   margin-bottom: 15px;
 }
 .editor-meta {
-  height: 33px;
+  height: 40px;
   border-bottom: 1px solid #ddd;
   background: #F6F6F6;
             @include clearfix;
   select {
     margin-bottom: 2px;
-    font-size: 12px;
+    font-size: 11px;
+    height: 24px;
   }
   .editor-header-type {
     float: left;
@@ -33,8 +34,7 @@ textarea.editor {
     padding: 0;
     border-right: thin solid #ddd;
     input[type="text"], input[type="text"]:focus {
-      height: 32px;
-      border-radius: $form-border-radius 0 0 0;
+      height: 39px;
       border: none;
       margin: 0;
       padding: 4px 8px;
@@ -50,7 +50,8 @@ textarea.editor {
   }
   .editor-header-actions {
     float: right;
-    padding: 4px 8px;
+    padding: 7px 8px;
+    height: 39px;
     border-left: thin solid #ddd;
     a {
       color: #ddd;

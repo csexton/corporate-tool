@@ -10,22 +10,38 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= normalize
  *= require_self
 
  */
 
+// Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "font-awesome";
+@import "bootstrap";
 
-@import 'bourbon';
-@import 'base/base';
-@import 'neat';
-
-@import "layout";
-@import "markdown";
-@import "pages";
-@import "gists";
-@import "editor";
-@import "code";
 @import "welcome";
+@import "editor";
+@import "footer";
+@import "code";
+@import "markdown";
+@import "gists";
+
+
+@media screen and (min-width: 62em) {
+  .Xnavbar-container {
+    margin: 0 auto;
+    max-width: 1140px;
+  }
+}
+
+nav .navbar-brand img.logo {
+  max-height: 20px;
+}
+
+
+.main {
+  .actions {
+    padding-top: 20px;
+    height:40px;
+  }
+}
 
