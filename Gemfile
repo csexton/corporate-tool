@@ -1,3 +1,4 @@
+ruby File.open('.ruby-version', 'rb') { |f| f.read.chomp }
 source 'https://rubygems.org'
 source 'https://rails-assets.org'
 
