@@ -1,3 +1,5 @@
+![Travis Status](https://travis-ci.org/csexton/corporate-tool.svg?branch=master)
+
 ![image](https://raw.githubusercontent.com/csexton/corporate-tool/master/graphics/github-readme.png)
 
 Self Hosted Wiki and Pastebin
