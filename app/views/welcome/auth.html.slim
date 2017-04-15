@@ -3,7 +3,7 @@ html lang="en"
   head
     meta charset="utf-8"
     meta name="viewport" content="width=device-width, initial-scale=1.0"
-    title Corporate Tool
+    title = site_name
     = stylesheet_link_tag "application"
     link rel="icon" type="image/x-icon" href=image_url("favicon.png")
 
@@ -13,17 +13,27 @@ html lang="en"
         .welcome-row
           .welcome
             .welcome-content
-              - flash.each do |name, msg|
-                = content_tag :div, msg, class: "flash-#{name}"
+              - flash.each do |type, message|
+                .alert class=bootstrap_class_for(type) role="alert"
+                  = message
               h1 Welcome
-              p You need to login to continue
+              - if ENV['GOOGLE_HOME_DOMAIN']
+                p You need to login with a #{ENV['GOOGLE_HOME_DOMAIN']} account to continue
+              - else
+                p You need to login to continue
               a.button href="/auth/google" Login with Google Apps
-      footer
-        .footer-row
-          .footer-nav
-            ul
-              li
-                | This is a <a href="github.com/csexton/coprorate-tool">Corporate Tool</a> site.
+
+    footer.footer
+      .container
+        ul
+          li
+            a href="//github.com/csexton/coprorate-tool"
+              = image_tag 'logo.png', class: 'logo', style: "max-height: 20px;"
+
+
+
+
+
 
 
 

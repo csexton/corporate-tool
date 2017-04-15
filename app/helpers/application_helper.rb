@@ -31,4 +31,8 @@ module ApplicationHelper
     }.fetch(flash_type.to_sym){ flash_type }
   end
 
+  def site_name
+    ENV.fetch('SITE_NAME') { "Corporate Tool" }
+  end
+
 end
