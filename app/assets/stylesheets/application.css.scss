@@ -49,3 +49,7 @@ nav .navbar-brand img.logo {
   padding-left: 0;
   padding-right: 0;
 }
+
+.form-control::placeholder {
+  color: #AAA;
+}
