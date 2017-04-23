@@ -4,12 +4,11 @@
 
 Self Hosted Wiki and Pastebin
 
-# Deployment
+# Deploy to Heroku
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-
-or you can use the old way and
+# Manual Deploy
 
 Clone the code, Create an app, Push the code, and set a few configuration variables.
 
@@ -23,7 +22,6 @@ Clone the code, Create an app, Push the code, and set a few configuration variab
 
 Corporate Tool uses OmniAuth to authenticate users with Google App's OAuth, those setting must be set an environment variables. See [`.env-example`](https://github.com/csexton/corporate-tool/blob/master/.env-example) for examples.
 
-
 ### Step 1: Create a new Google Developer Project
 
 https://console.developers.google.com/
@@ -35,8 +33,8 @@ Create new Project -> APIs and Auth -> Credentials -> Create new Client ID -> We
 In `AUTHORIZED REDIRECT URI` add the following
 
 ```
-   http://localhost:3000/
-   http://my-corporate-tool-domain.com/
+http://localhost:3000/
+http://my-corporate-tool-domain.com/
 ```
 
 In `AUTHORIZED JAVASCRIPT ORIGINS` add the following:
