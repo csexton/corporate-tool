@@ -18,10 +18,11 @@ html lang="en"
                   = message
               h1 Welcome
               - if ENV['GOOGLE_HOME_DOMAIN']
-                p You need to login with a #{ENV['GOOGLE_HOME_DOMAIN']} account to continue
+                p You need to login with a #{ENV['GOOGLE_HOME_DOMAIN']} account to continue.
               - else
-                p You need to login to continue
-              a.button href="/auth/google" Login with Google Apps
+                p You need to login to continue.
+              p
+                a.btn.btn-primary href="/auth/google" Login with Google
 
     footer.footer
       .container

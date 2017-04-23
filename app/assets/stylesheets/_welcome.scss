@@ -1,6 +1,6 @@
 .welcome {
   margin: 0 auto;
-  width: 400px;
+  width: 500px;
   background-color: #f3f3f3;
   text-shadow: 0 1px 0 #fff;
   border: 1px solid #e5e5e5;
@@ -10,6 +10,9 @@
   .flash-notice {
     //@extend %flash-error;
     border-radius: 3px;
+  }
+  a.btn {
+    text-shadow: none;
   }
 }
 @media (max-width: 600px) {
