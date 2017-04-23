@@ -21,7 +21,7 @@ RSpec.describe "Gists", type: :request do
   let(:valid_session) { { user_id: rory.id} }
 
   describe "GET index" do
-    it "assigns all gists as @gists" do
+    it "renders the gist description" do
       sign_in rory
       gist = Gist.create! valid_attributes
       get gists_path
@@ -41,7 +41,7 @@ RSpec.describe "Gists", type: :request do
   end
 
   describe "GET new" do
-    it "assigns a new gist as @gist" do
+    it "renders the gist description" do
       sign_in rory
       get new_gist_path
       expect(response.body).to include("gist[gist_files_attributes][0][file_name]")
