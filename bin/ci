@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# script/ci: Setup environment for CI to run tests. This is primarily
+#            designed to run on the continuous integration server.
+
+set -e
+cd "$(dirname "$0")/.."
+
+export RAILS_ROOT="$(cd "$(dirname "$0")"/.. && pwd)"
+export RAILS_ENV="test"
+export RACK_ENV="test"
+export RACK_ROOT="$RAILS_ROOT"
+
+# Create the database and run migrations
+#./bin/rake db:create db:test:prepare
+
+# Run the specs for the rails app
+echo " ---> Running tests"
+./bin/rspec --require spec_helper
+
+# Script for running bundle audits
+# bundle-audit provides patch-level verification for Bundler
+# https://github.com/rubysec/bundler-audit.
+echo " ---> Running bundler-audit"
+gem install --no-rdoc --no-ri bundler-audit
+bundle-audit check --update
+
+# Script for running Brakeman tests
+# Brakeman is a security scanner
+# https://github.com/presidentbeef/brakeman.
+echo " ---> Running breakman"
+gem install --no-rdoc --no-ri brakeman slim
+brakeman --run-all-checks --exit-on-warn --ignore-config .brakemanignore .
+
+# Script for running Rubocop
+# A Ruby static code analyzer, based on the community Ruby style guide.
+# http://rubocop.readthedocs.io
+echo " ---> Running rubocop"
+gem install --no-rdoc --no-ri rubocop
+rubocop --config .rubocop.yml
+

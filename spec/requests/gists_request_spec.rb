@@ -49,7 +49,7 @@ RSpec.describe "Gists", type: :request do
   end
 
   describe "GET edit" do
-    it "assigns the requested gist as @gist" do
+    it "renders the gist description" do
       sign_in rory
       gist = Gist.create! valid_attributes
       get edit_gist_path(gist)
