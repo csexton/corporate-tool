@@ -1,0 +1,23 @@
+#sidebar {
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 4px;
+    padding-top: 0.5rem;
+
+  h1 {
+    font-size: 1.0rem;
+    line-height: 2;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+  }
+
+  li {
+    margin: 0;
+  }
+
+  .btn-sidebar-edit {
+    display: none;
+  }
+  &:hover .btn-sidebar-edit {
+    display: inline-block;
+
+  }
+}

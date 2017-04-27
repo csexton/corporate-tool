@@ -2,6 +2,8 @@
 - if sidebar_page
   .markdown
     = render_page sidebar_page
+  /a.btn.btn-sm.btn-secondary.btn-sidebar-edit href=edit_page_path(sidebar_page)
+  /  | #{fa_icon 'pencil-square-o'} Edit Sidebar
 - else
   h4 Add a Sidebar
   p
