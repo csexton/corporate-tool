@@ -7,38 +7,40 @@ gem 'pg'
 gem 'puma'
 gem 'redis'
 
-gem 'font-awesome-rails'
-gem 'slim-rails'
+gem 'kaminari', git: "https://github.com/amatsuda/kaminari.git", branch: 'master'
+gem 'aws-sdk', require: false
 gem 'rails_12factor',   group: :production
+gem "omniauth-google-oauth2"
+
+# Markdown
 
 gem 'redcarpet'
 gem 'github-markup', require: 'github/markup'
 gem 'pygments.rb'
 gem 'gemoji'
 
-gem 'nested_form'
-## For HTML Pipeline
-#gem 'html-pipeline'
-#gem 'rinku'
-#gem 'gemoji',             '~> 1.0'
-#gem 'github-markdown',    '~> 0.5'
-#gem 'pygments.rb'
-#gem 'github-linguist'
+# Views
 
-gem "omniauth-google-oauth2"
-
-gem 'sass-rails'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.2'
-gem 'jquery-rails'
+gem 'slim-rails'
 gem 'jbuilder', '~> 2.5'
+gem 'nested_form'
 
+# Assets
+
+gem 'font-awesome-rails'
+gem 'sass-rails'
 gem 'bootstrap', '~> 4.0.0.alpha6'
-
 gem 'rails-assets-ace-builds'
 
+# Javascript
+
+gem 'jquery-rails'
+gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails', '~> 4.2'
+
+# Documentation
+
 gem 'sdoc',          group: :doc, require: false
-gem 'spring',        group: :development
 
 group :development, :test do
   gem 'better_errors'
@@ -55,4 +57,5 @@ end
 group :development do
   gem 'pry-rescue'
   gem 'pry-stack_explorer'
+  gem 'spring'
 end

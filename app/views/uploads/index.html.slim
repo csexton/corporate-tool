@@ -1,0 +1,33 @@
+.content-heading
+  .btn-toolbar.pull-right
+    .btn-group
+      = link_to "New Upload", new_upload_path, class: "btn btn-sm btn-success"
+h1
+  | Uploads
+
+.panel.panel-default
+  .panel-heading Uploads
+  .table-responsive
+    table.table.table-striped
+      thead
+        tr
+          th.two-action-cell ID
+          th URL
+          th.two-action-cell
+
+      tbody
+        - @uploads.each do |upload|
+          tr
+            td
+              a href=upload_path(upload) = upload.id
+            td
+              a href=upload.url = upload.url
+            td
+              .pull-right
+                = link_to upload, data: { confirm: 'Are you sure you want to delete this upload?' }, method: :delete, class: "text" do
+                  span.fa-stack.icon-danger
+                    em.fa.fa-square.fa-stack-2x
+                    em.fa.fa-remove.fa-inverse.fa-stack-1x
+
+.panel
+  = paginate @uploads

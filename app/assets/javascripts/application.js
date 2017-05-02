@@ -34,5 +34,7 @@
 //= require ace-builds/src-noconflict/mode-html
 //= require ace-builds/src-noconflict/mode-css
 //= require jquery-ace
+//= require inline-attachment
+//= require jquery.inline-attachment
 //= require_tree .
 

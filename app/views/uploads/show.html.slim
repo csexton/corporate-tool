@@ -1,0 +1,39 @@
+h1 Upload #{@upload.id}
+.image-preview
+  img style="max-width: 100%;" src=@upload.url
+.table-responsive
+  table.table.table-striped
+    thead
+      tr
+        th Attribute
+        th Value
+
+    tbody
+      tr
+        td ID
+        td
+          a href=upload_path(@upload) = @upload.id
+      tr
+        td URL
+        td
+          a href=@upload.url = @upload.url
+      tr
+        td File type
+        td = @upload.file_type
+      tr
+        td File size
+        td
+          => @upload.file_size_bytes
+          | bytes
+      tr
+        td Created at
+        td = @upload.created_at
+      tr
+        td Owner
+        td = @upload.user.email
+.actions
+  .pull-right
+    = link_to @upload, data: { confirm: 'Are you sure you want to delete this upload?' }, method: :delete, class: "btn btn-danger" do
+      | Delete
+  a.btn.btn-primary href=uploads_path Cancel
+
