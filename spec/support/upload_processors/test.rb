@@ -1,4 +1,4 @@
-class UploadProcessors::Null
+class UploadProcessors::Test
   attr_reader :file
 
   def initialize(file)
@@ -7,6 +7,5 @@ class UploadProcessors::Null
 
   def run
     Rails.logger.error "No upload strategy configured, unable to process #{file}"
-    ActionController::Base.helpers.image_path("null-upload.png", digest: false)
   end
 end

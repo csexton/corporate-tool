@@ -7,7 +7,6 @@ class UploadProcessors::Filesystem
   def run
     FileUtils.mkdir_p filesystem_path
     FileUtils.move file.path, filesystem_path.join(unique_filename).to_s
-    Rails.logger.info("Process upload for #{file}")
     url_path
   end
 

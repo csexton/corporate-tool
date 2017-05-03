@@ -20,7 +20,6 @@ class UploadsController < ApplicationController
   # POST /uploads
   def create
     file = params[:file] || params[:upload][:file]
-
     @upload = Upload.create_with_file file, current_user
 
     respond_to do |format|

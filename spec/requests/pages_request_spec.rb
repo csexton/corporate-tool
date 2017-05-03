@@ -60,7 +60,7 @@ RSpec.describe "Pages", :type => :request do
       it "redirects to the created page" do
         sign_in rory
         post pages_path, params: {page: valid_attributes}
-        expect(response).to redirect_to(Page.last)
+        expect(response).to redirect_to("/#{Page.last.path}")
       end
     end
 
@@ -89,7 +89,8 @@ RSpec.describe "Pages", :type => :request do
         sign_in rory
         page = Page.create! valid_attributes
         put page_path(page), params: {page: new_attributes}
-        expect(response).to redirect_to(page)
+        page.reload
+        expect(response).to redirect_to("/#{new_attributes[:path]}")
       end
     end
 
