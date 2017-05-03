@@ -1,5 +1,10 @@
 class UploadProcessors::Filesystem
+  def self.enabled?
+    true
+  end
+
   attr_reader :file
+
   def initialize(file)
     @file = file
   end

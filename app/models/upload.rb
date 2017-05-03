@@ -26,7 +26,7 @@ class Upload < ActiveRecord::Base
   # different uploaders without changing the code.
   class << self
     def enabled?
-      !processor.nil?
+      processor.respond_to?(:enabled?) && processor.enabled?
     end
 
     def processor

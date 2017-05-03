@@ -15,8 +15,11 @@
   .form-group
     = f.text_area :body, class: "plain-text markdown #{"inlineattachment" if Upload.enabled?}"
     small.form-text.text-muted
-      | Markdown formatting supported -
-      a< href="https://help.github.com/articles/basic-writing-and-formatting-syntax/" target="_blank" Formatting Help #{fa_icon 'external-link'}
+      - if Upload.enabled?
+        span Attach files by dragging & dropping, or pasting from the clipboard.
+      span<
+        | Markdown supported.
+        a< href="https://help.github.com/articles/basic-writing-and-formatting-syntax/" target="_blank" Formatting Help #{fa_icon 'external-link'}
   .form-group
     .actions
         button#page_save.btn.btn-primary type="submit"

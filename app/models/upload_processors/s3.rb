@@ -1,7 +1,12 @@
 require 'aws-sdk'
 
 class UploadProcessors::S3
+  def self.enabled?
+    true
+  end
+
   attr_reader :file
+
   def initialize(file)
     @file = file
   end
