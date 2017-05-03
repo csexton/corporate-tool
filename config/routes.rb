@@ -1,9 +1,15 @@
 Rails.application.routes.draw do
   root 'welcome#index'
 
-  resources :pages
+  resources :pages do
+    member do
+      get 'versions/:version_id(.:format)', action: :version, as: :version
+      get 'versions', action: :versions, as: :versions
+    end
+  end
   resources :gists
   resources :uploads, except: [:edit, :update]
+  resource  :profile, only: [:show, :update]
 
   get 'welcome/auth'
   get '/auth/:provider/callback', to: 'sessions#create'

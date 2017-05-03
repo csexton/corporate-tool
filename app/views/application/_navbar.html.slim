@@ -14,6 +14,13 @@
             a.nav-link href=new_page_path New Page
           li.nav-item class=active_if("gists")
             a.nav-link href=new_gist_path New Gist
-        ul.navbar-nav
+        ul.navbar-nav.pull-right
           li.nav-item
-            a.nav-link href=signout_path Sign Out
+            a.dropdown-item href=signout_path
+          li.nav-item.dropdown
+            a#dropdown02.nav-link  aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href=signout_path
+              img.avatar title="Signed in as #{current_user.name}" src=avatar_path(current_user)
+            .dropdown-menu aria-labelledby="dropdown02"
+              a.dropdown-item href=signout_path Sign Out
+              a.dropdown-item href=profile_path Profile
+

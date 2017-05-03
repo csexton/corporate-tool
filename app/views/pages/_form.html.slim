@@ -15,15 +15,20 @@
   .form-group
     = f.text_area :body, class: "plain-text markdown #{"inlineattachment" if Upload.enabled?}"
     small.form-text.text-muted
+      .pull-right
+        => link_to "Formatting Help", "https://help.github.com/articles/basic-writing-and-formatting-syntax/", target: "_blank"
+        - unless page.versions.empty?
+          | -
+          =<> link_to "Older Versions", versions_page_path(page)
       - if Upload.enabled?
         span Attach files by dragging & dropping, or pasting from the clipboard.
-      span<
+      span<>
         | Markdown supported.
-        a< href="https://help.github.com/articles/basic-writing-and-formatting-syntax/" target="_blank" Formatting Help #{fa_icon 'external-link'}
   .form-group
     .actions
-        button#page_save.btn.btn-primary type="submit"
-          => fa_icon 'save'
-          | Save
+      .pull-right
         - if page.persisted?
-          =< link_to "#{fa_icon("trash-o")} Delete".html_safe, page, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-danger"
+          =<> link_to "Delete", page, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-danger"
+      button#page_save.btn.btn-primary type="submit"
+        | Save
+      =< link_to "Cancel", display_page_path(page), class: "btn btn-secondary"

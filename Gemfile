@@ -8,6 +8,7 @@ gem 'puma'
 gem 'redis'
 
 gem 'kaminari', git: "https://github.com/amatsuda/kaminari.git", branch: 'master'
+gem 'paper_trail'
 gem 'aws-sdk', require: false
 gem 'rails_12factor',   group: :production
 gem "omniauth-google-oauth2"

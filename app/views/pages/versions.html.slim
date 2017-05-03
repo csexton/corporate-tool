@@ -1,0 +1,29 @@
+- content_for :title do
+  = @page.path
+p
+  = link_to fa_icon("chevron-left", text: "Back to Page"), @page, class: "btn btn-sm btn-secondary"
+p
+  h3 Older Versions of <code>/#{@page.path}</code>
+  br
+  table.table.table-striped
+    tbody
+      tr
+        th Version
+        th Updated at
+        th Author
+        th Event
+        th
+      - @versions.each do |version|
+        tr
+          td
+            = version.index
+          td
+            = version_date version
+          td
+            = version_user version
+          td
+            =version.event
+          td
+            - if version.event != "create"
+              a href=version_page_path(@page, version.id) view
+

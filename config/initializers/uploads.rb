@@ -8,7 +8,7 @@ Rails.application.config.before_initialize do
             when :s3
               UploadProcessors::S3
             else
-              UploadProcessors::Null
+              nil
             end
     #klass = UploadProcessors.const_get(ENV.fetch('UPLOAD_PROCESSOR').classify
     Rails.configuration.x.upload_processor_class = klass

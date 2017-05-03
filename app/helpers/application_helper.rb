@@ -35,4 +35,13 @@ module ApplicationHelper
     ENV.fetch('SITE_NAME') { "Corporate Tool" }
   end
 
+  def avatar_path(user)
+    if user.avatar_url.blank?
+      md5 = Digest::MD5.hexdigest(user.email.downcase)
+      "https://www.gravatar.com/avatar/#{md5}.png?s=50&d=identicon&r=PG"
+    else
+      user.avatar_url
+    end
+  end
+
 end

@@ -1,10 +1,16 @@
-- page = @page
-
 - content_for :title do
-  = page.path
-p
-  .markdown
-    = render_page page
-.actions
-  small
-    = link_to fa_icon("pencil-square-o", text: "Edit Page"), edit_page_path(page), class: "btn btn-sm btn-secondary"
+  = @page.path
+- if @version
+  .alert.alert-warning role="alert"
+    |
+      This is the #{@version.index.ordinalize} version of this page.
+      Created on #{version_date @version} by #{version_user @version}.
+    .actions
+      a.btn.btn-sm.btn-link href="#{display_page_path @page}" Current Page
+      a.btn.btn-sm.btn-link< href=version_page_path(@page, @version.id, format: :txt) Plain Text
+- else
+  .small.pull-right
+    = link_to "Edit", edit_page_path(@page), class: "btn btn-sm btn-secondary"
+
+.markdown
+  = render_page @page

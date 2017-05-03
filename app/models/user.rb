@@ -6,4 +6,9 @@ class User < ActiveRecord::Base
     user.save!
     user
   end
+
+  def update_avatar
+    fetcher = AvatarFetcher.new(self)
+    update_attribute :avatar_url, fetcher.url if fetcher.run
+  end
 end

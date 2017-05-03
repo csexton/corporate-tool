@@ -1,12 +1,31 @@
 class PagesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_page, only: [:show, :edit, :update, :destroy]
+  before_action :set_paper_trail_whodunnit
+
+  def version
+    @version = Page.find(params[:id]).versions.find(params[:version_id])
+    @page = @version.reify
+
+    respond_to do |format|
+      format.html { render :show }
+      format.text { render plain: @page.body }
+    end
+  end
+
+  def versions
+    @page = Page.find(params[:id])
+    @versions = @page.versions.limit(200)
+  end
 
   def display
     @page = Page.find_by(path: params[:path])
 
     if @page
-      render :show
+      respond_to do |format|
+        format.html { render :show }
+        format.text { render plain: @page.body }
+      end
     else
       redirect_to new_page_path(path: params[:path]),
                   notice: "No page found at '/#{params[:path]}' but you can create one now"
@@ -22,6 +41,10 @@ class PagesController < ApplicationController
   # GET /pages/1
   # GET /pages/1.json
   def show
+    respond_to do |format|
+      format.html { }
+      format.text { render plain: @page.body }
+    end
   end
 
   # GET /pages/new

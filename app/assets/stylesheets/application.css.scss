@@ -39,12 +39,14 @@ nav .navbar-brand img.logo {
   max-height: 20px;
 }
 
-
-.main {
-  .actions {
-    padding-top: 20px;
-    height:40px;
-  }
+img.avatar {
+  border-radius: 50%;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+}
+nav img.avatar {
+  margin: -.5rem 0 -0.5rem 0.5rem;
 }
 
 .container .navbar {
@@ -55,3 +57,5 @@ nav .navbar-brand img.logo {
 .form-control::placeholder {
   color: #AAA;
 }
+
+
