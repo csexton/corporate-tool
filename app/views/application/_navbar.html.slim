@@ -15,8 +15,6 @@
           li.nav-item class=active_if("gists/new")
             a.nav-link href=new_gist_path New Gist
         ul.navbar-nav.pull-right
-          li.nav-item
-            a.dropdown-item href=signout_path
           li.nav-item.dropdown
             a#dropdown02.nav-link  aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href=signout_path
               img.avatar title="Signed in as #{current_user.name}" src=avatar_path(current_user)
