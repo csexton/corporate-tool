@@ -2,7 +2,6 @@ class SessionsController < ApplicationController
   before_action :require_homedomain, only: :create
 
   def create
-    debugger
     user = User.from_omniauth(request.env['omniauth.auth'])
     session[:user_id] = user.id
     redirect_to root_url, notice: "Signed in."
