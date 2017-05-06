@@ -1,7 +1,7 @@
 - content_for :title do
   = @page.path
-p
-  = link_to fa_icon("chevron-left", text: "Back to Page"), @page, class: "btn btn-sm btn-secondary"
+.pull-right
+  = link_to fa_icon("chevron-left", text: "Back"), @page, class: "btn btn-sm btn-secondary"
 p
   h3 Older Versions of <code>/#{@page.path}</code>
   br

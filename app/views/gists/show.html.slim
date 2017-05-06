@@ -1,4 +1,14 @@
-h2 = @gist.description
+- content_for :title do
+  = @gist.description
+
+.small.pull-right
+  = link_to "Edit", edit_gist_path(@gist), class: "btn btn-sm btn-secondary"
+
+h3 = @gist.description
+small.text-muited Updated #{time_ago_in_words @gist.updated_at} ago
+br
+br
+
 - @gist.gist_files.reverse.each do |gist_file|
   div class="gist-file gist-file-type-#{gist_file.file_type}"
     - unless gist_file.file_name.empty?
@@ -6,6 +16,3 @@ h2 = @gist.description
         = gist_file.file_name
     = render_gist gist_file
 
-.actions
-  small
-    = link_to fa_icon("pencil-square-o", text: "Edit Gist"), edit_gist_path(@gist), class: "btn btn-sm btn-secondary"

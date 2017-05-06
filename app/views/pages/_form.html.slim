@@ -27,8 +27,8 @@
   .form-group
     .actions
       .pull-right
-        - if page.persisted?
-          =<> link_to "Delete", page, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-danger"
-      button#page_save.btn.btn-primary type="submit"
-        | Save
-      =< link_to "Cancel", display_page_path(page), class: "btn btn-secondary"
+        => link_to "Cancel", display_page_path(page), class: "btn btn-secondary"
+        button#page_save.btn.btn-primary type="submit"
+          = fa_icon 'save', text: "Save"
+      - if page.persisted?
+        =<> link_to fa_icon("trash-o", text: "Delete"), page, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-danger"

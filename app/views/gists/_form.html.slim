@@ -17,10 +17,12 @@
               = gist_file_fields.link_to_remove fa_icon(:times), title: 'Delete File'
           = gist_file_fields.text_area :body, class: :editor, :'data-ace-lang' => "#{gist_file_fields.object.file_type}"
     = f.link_to_add fa_icon("plus", text: "Add File"), :gist_files, class: "btn btn-sm btn-secondary"
-  br
+
   .actions
+    .pull-right
+      => link_to "Cancel", root_path, class: "btn btn-secondary"
       button#gist_save.btn.btn-primary type="submit"
         => fa_icon 'save', text: "Save"
-      - if @gist.persisted?
-        =< link_to fa_icon("trash-o", text: "Delete"), @gist, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-danger"
+    - if @gist.persisted?
+      =< link_to fa_icon("trash-o", text: "Delete"), @gist, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-danger"
 

@@ -6,11 +6,11 @@
 #
 class Renderer
   def self.markdown(body)
-    self.new.render_markdown(body).html_safe
+    self.new.render_markdown(body).html_safe unless body.empty?
   end
 
-  def self.gist(body)
-    self.new.render_gist(body).html_safe
+  def self.gist(file)
+    self.new.render_gist(file).html_safe unless file.body.empty?
   end
 
   class HTMLwithPygments < Redcarpet::Render::HTML
@@ -34,6 +34,7 @@ class Renderer
                                         autolink: true,
                                         fenced_code_blocks: true,
                                         footnotes: true,
+                                        hard_wrap: true,
                                         lax_spacing: true,
                                         no_intra_emphasis: true,
                                         space_after_headers: true,

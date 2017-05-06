@@ -12,6 +12,8 @@ module ApplicationHelper
     action = controller.action_name
 
     case item
+    when "gists/new"
+      "active" if name == "gists" && action == "new"
     when "pages/new"
       "active" if name == "pages" && action == "new"
     when "pages"

@@ -1,15 +1,10 @@
-h1 Profile: #{current_user.name}
-p Edit user details
+h1 Edit Profile
 
 == form_for current_user, :url => profile_path do |f|
   .form-group
-    = f.label :avatar_url
-    = f.text_field :avatar_url, class: "form-control"
-    small.form-text.text-muted
-      | Image should be 50x50 pixels.
-      - if ENV["GOOGLE_API_KEY"]
-        = f.submit "Use Google+ Avatar", class: "btn btn-sm btn-link", name: "fetch_avatar"
-  .form-group
+    = f.label :name
+    = f.text_field :name, class: "form-control"
+  .pull-right
     = f.submit "Save", class: "btn btn-primary"
-    | &nbsp;
+  = link_to "Cancel", root_path, class: "btn btn-secondary"
 
