@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resource  :profile, only: [:show, :update]
   get '/directory', to: "directory#index"
   get '/directory/:id', to: "directory#show"
+  post 'preview', to: 'preview#show'
 
   get 'welcome/auth'
   get '/auth/:provider/callback', to: 'sessions#create'

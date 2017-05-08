@@ -12,18 +12,29 @@
     = f.text_field :path, placeholder: "The path to the page. 'my_page' will go to #{request.base_url}/my_page", class: "form-control"
     small.form-text.text-muted Path to the page
 
-  .form-group
-    = f.text_area :body, class: "plain-text markdown #{"inlineattachment" if Upload.enabled?}"
-    small.form-text.text-muted
-      .pull-right
-        => link_to "Formatting Help", "https://help.github.com/articles/basic-writing-and-formatting-syntax/", target: "_blank"
-        - unless page.versions.empty?
-          | -
-          =<> link_to "Older Versions", versions_page_path(page)
-      - if Upload.enabled?
-        span Attach files by dragging & dropping, or pasting from the clipboard.
-      span<>
-        | Markdown supported.
+  ul.nav.nav-tabs role="tablist"
+    li.nav-item
+      a.nav-link.active data-toggle="tab" href="#editor" role="tab" Editor
+    li.nav-item
+      a#preview_tab.nav-link data-toggle="tab" href="#preview" role="tab" Preview
+  .tab-content
+    #editor.tab-pane.active role="tabpanel"
+      .form-group
+        = f.text_area :body, class: "plain-text markdown #{"inlineattachment" if Upload.enabled?}"
+        small.form-text.text-muted
+          .pull-right
+            => link_to "Formatting Help", "https://help.github.com/articles/basic-writing-and-formatting-syntax/", target: "_blank"
+            - unless page.versions.empty?
+              | -
+              =<> link_to "Older Versions", versions_page_path(page)
+          - if Upload.enabled?
+            span Attach files by dragging & dropping, or pasting from the clipboard.
+          span<>
+            | Markdown supported.
+    #preview.tab-pane role="tabpanel"
+      .markdown
+        #preview_area
+
   .form-group
     .actions
       .pull-right
