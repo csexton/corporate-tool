@@ -58,4 +58,11 @@ nav img.avatar {
   color: #AAA;
 }
 
-
+.directory {
+  .row {
+    line-height: 2em;
+    border-top: thin solid #ddd;
+    margin-top: 1em;
+    padding-top: 1em;
+  }
+}

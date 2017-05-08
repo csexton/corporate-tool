@@ -3,7 +3,19 @@ h1 Edit Profile
 == form_for current_user, :url => profile_path do |f|
   .form-group
     = f.label :name
-    = f.text_field :name, class: "form-control"
+    = f.text_field :name, class: "form-control", disabled: true
+  .form-group
+    = f.label :email
+    = f.text_field :email, class: "form-control", disabled: true
+  .form-group
+    = f.label :phone_number
+    = f.text_field :phone_number, class: "form-control", placeholder: "(XXX) XXX-XXXX"
+  .form-group
+    = f.label :github_username
+    = f.text_field :github_username, class: "form-control"
+  .form-group
+    = f.label :slack_username
+    = f.text_field :slack_username, class: "form-control"
   .pull-right
     = f.submit "Save", class: "btn btn-primary"
   = link_to "Cancel", root_path, class: "btn btn-secondary"

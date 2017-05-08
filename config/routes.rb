@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   resources :gists
   resources :uploads, except: [:edit, :update]
   resource  :profile, only: [:show, :update]
+  get '/directory', to: "directory#index"
+  get '/directory/:id', to: "directory#show"
 
   get 'welcome/auth'
   get '/auth/:provider/callback', to: 'sessions#create'

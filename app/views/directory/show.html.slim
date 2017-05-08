@@ -1,0 +1,17 @@
+h1
+  | Directory
+  small.text-muted< = @user.name
+
+p
+  img src=avatar_path(@user)
+  - unless @user.phone_number.blank?
+    h5 Phone Number
+    a href="tel:+1#{@user.phone_number.gsub(/\D/, '')}"
+      = @user.phone_number
+  - unless @user.github_username.blank?
+    h5 Github
+    a href="https://github.com/#{@user.github_username}"
+      = "https://github.com/#{@user.github_username}"
+- if @user == current_user
+  a.btn.btn-secondary href=profile_path Edit
+

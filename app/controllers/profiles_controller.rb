@@ -15,7 +15,7 @@ class ProfilesController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name)
+    params.require(:user).permit(:phone_number, :slack_username, :github_username)
   end
 
 end

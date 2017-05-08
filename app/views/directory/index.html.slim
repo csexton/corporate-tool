@@ -1,0 +1,16 @@
+h1 Directory
+
+.directory
+  - @users.each do |user|
+    .row
+      .col-lg-1.col-1
+        img.avatar src=avatar_path(user)
+      .col-lg-3.col-10 = user.name
+      .col-lg-4
+        - unless user.email.blank?
+          a href="mailto:#{user.email}"
+            = user.email
+      .col-lg-4
+        - unless user.phone_number.blank?
+          a href="tel:+1#{user.phone_number.gsub(/\D/, '')}"
+            = user.phone_number
