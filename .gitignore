@@ -17,4 +17,5 @@
 /public/uploads
 
 /.env
-
+/.powenv
+/.powrc
