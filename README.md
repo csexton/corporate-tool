@@ -4,6 +4,11 @@
 
 Self Hosted Wiki and Pastebin
 
+- Github Flavored Markdown
+- Emoji support
+- Drag and Drop (and Paste) support for image attachments
+- Google Apps authentication
+
 # Deploy to Heroku
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
