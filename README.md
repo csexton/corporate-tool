@@ -1,6 +1,6 @@
 ![Travis Status](https://travis-ci.org/csexton/corporate-tool.svg?branch=master)
 
-![image](https://raw.githubusercontent.com/csexton/corporate-tool/master/graphics/github-readme.png)
+![CorporateTool Logo](/graphics/github-readme.png?raw=true "Project Logo")
 
 Self Hosted Wiki and Pastebin
 
@@ -8,6 +8,16 @@ Self Hosted Wiki and Pastebin
 - Emoji support
 - Drag and Drop (and Paste) support for image attachments
 - Google Apps authentication
+
+# Screenshots
+
+![Wiki Screenshot](/graphics/screenshot-wiki-show.png?raw=true "Screen Shot")
+
+![Wiki Screenshot](/graphics/screenshot-wiki-edit.png?raw=true "Screen Shot")
+
+![Gist Screenshot](/graphics/screenshot-gist-show.png?raw=true "Screen Shot")
+
+![Gist Screenshot](/graphics/screenshot-gist-edit.png?raw=true "Screen Shot")
 
 # Deploy to Heroku
 
