@@ -19,60 +19,33 @@ Self Hosted Wiki and Pastebin
 
 ![Gist Screenshot](/graphics/screenshot-gist-edit.png?raw=true "Screen Shot")
 
-# Deploy to Heroku
+## Deploy to Heroku
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-# Manual Deploy
+## Local Development
 
-Clone the code, Create an app, Push the code, and set a few configuration variables.
+```
+cp .env-example .env
+./bin/bundle
+./bin/rails db:setup
+./bin/rails serve
+```
 
-## Config Variables
+Before you can run the local server you will need to configure the app to use your google credentials. See [Configuration](#configuration) below for details.
+
+## Configuration
+
+All configuration of the app id done through environment variables. Authentication settings are required, the other options are, um, optional.
+
+Corporate Tool uses [OmniAuth](https://github.com/omniauth/omniauth) to authenticate users with Google App's OAuth, the following credentials must be set on environment variables.
 
 - `GOOGLE_CLIENT_ID` - Google OAuth Client ID
 - `GOOGLE_CLIENT_SECRET` - Google OAuth Client Secret Key
 - `GOOGLE_HOME_DOMAIN` - Optional. Restrict access to only this Google apps domain
 
-## Obtaining OAuth Credentials
+See [`.env-example`](/.env-example) for instructions for setting up the cerdentials, and examples and, a full list of settings.
 
-Corporate Tool uses OmniAuth to authenticate users with Google App's OAuth, those setting must be set an environment variables. See [`.env-example`](https://github.com/csexton/corporate-tool/blob/master/.env-example) for examples.
+# License
 
-### Step 1: Create a new Google Developer Project
-
-https://console.developers.google.com/
-
-### Step 2: Add OAuth 2.0 Credentials to that Project
-
-Create new Project -> APIs and Auth -> Credentials -> Create new Client ID -> Web Application
-
-In `AUTHORIZED REDIRECT URI` add the following
-
-```
-http://localhost:3000/
-http://my-corporate-tool-domain.com/
-```
-
-In `AUTHORIZED JAVASCRIPT ORIGINS` add the following:
-
-```
-http://localhost:3000/auth/google/callback
-http://my-corporate-tool-domain.com/auth/google/callback
-```
-
-Make sure you enable the API for "Google+" for that app as well, or you will get a "Access Not Configured. Please use Google Developers Console to activate the API for your project" error when doing the oauth handshake.
-
-### Step 3: Set the Enviroment Variables for Your App
-
-It might look like this:
-
-```
-GOOGLE_CLIENT_ID="000000000000-00000000000000000000000000000000.apps.googleusercontent.com"
-GOOGLE_CLIENT_SECRET="000000000000000000000000"
-```
-
-Optionally you can restrict to a specific Google Apps domain by setting the `GOOGLE_HOME_DOMAIN`:
-
-```
-GOOGLE_HOME_DOMAIN="my-company-domain.com"
-```
-
+MIT License. See [LICENSE](/LICENSE) for details.
