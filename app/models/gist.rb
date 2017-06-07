@@ -4,6 +4,9 @@ class Gist < ActiveRecord::Base
   accepts_nested_attributes_for :gist_files
   validates_presence_of :description
 
+  include PgSearch
+  multisearchable against: [:description]
+
   def user_name
     user&.name || "Nobody"
   end

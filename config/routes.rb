@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   root 'welcome#index'
 
   resources :pages do
@@ -13,6 +14,7 @@ Rails.application.routes.draw do
   get '/directory', to: "directory#index"
   get '/directory/:id', to: "directory#show"
   post 'preview', to: 'preview#show'
+  get '/search', to: 'search#show'
 
   get 'welcome/auth'
   get '/auth/:provider/callback', to: 'sessions#create'

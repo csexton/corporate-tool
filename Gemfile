@@ -4,6 +4,7 @@ source 'https://rails-assets.org'
 
 gem 'rails', '5.0.2'
 gem 'pg'
+gem 'pg_search'
 gem 'puma'
 gem 'redis'
 

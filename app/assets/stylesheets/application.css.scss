@@ -67,3 +67,24 @@ nav img.avatar {
     padding-top: 1em;
   }
 }
+
+.navbar input.form-control {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+
+.search-box {
+  background-color: #f7f7f9;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+.search-result {
+  border-bottom: thin solid #f7f7f9;
+}
+.search-preview {
+  text-overflow: ellipsis;
+}
+.search-preview strong {
+  background-color: yellow;
+}
