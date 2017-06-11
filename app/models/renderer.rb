@@ -30,17 +30,18 @@ class Renderer
   end
 
   def render_markdown(body)
-    markdown = Redcarpet::Markdown.new(HTMLwithPygments,
-                                        autolink: true,
-                                        fenced_code_blocks: true,
-                                        footnotes: true,
-                                        hard_wrap: true,
-                                        lax_spacing: true,
-                                        no_intra_emphasis: true,
-                                        space_after_headers: true,
-                                        strikethrough: true,
-                                        tables: true
-                                       )
+    renderer = HTMLwithPygments.new(with_toc_data: true)
+    markdown = Redcarpet::Markdown.new(renderer,
+                                       autolink: true,
+                                       fenced_code_blocks: true,
+                                       footnotes: true,
+                                       hard_wrap: true,
+                                       lax_spacing: true,
+                                       no_intra_emphasis: true,
+                                       space_after_headers: true,
+                                       strikethrough: true,
+                                       tables: true
+                                      )
     emojify(markdown.render(body))
   end
 

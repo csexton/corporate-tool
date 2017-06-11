@@ -13,7 +13,7 @@ RSpec.describe "Pages", :type => :request do
     it "renders markdown content" do
       sign_in rory
       post preview_path, params: valid_attributes
-      expect(response.body).to include "<h1>"
+      expect(response.body).to include '<h1 id="header-1">'
     end
   end
 end

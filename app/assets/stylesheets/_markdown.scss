@@ -27,13 +27,30 @@
   img {
     max-width: 100% !important;
   }
-}
 
+  h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    margin-bottom: 0.9rem;
+  }
+
+}
 
 .markdown .highlight pre, .hll{
   background-color: #f8f8f8;
   border: 1px solid #ccc;
   padding: 6px 10px;
   border-radius: 3px;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  &:hover > .anchor{
+    display: inline;
+  }
+  .anchor {
+    color: #eee;
+    display: none;
+    font-size: 0.8em;
+    margin-left: 0.2em;
+    line-height: 1;
+  }
 }
 
