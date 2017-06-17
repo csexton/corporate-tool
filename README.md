@@ -36,13 +36,13 @@ Before you can run the local server you will need to configure the app to use yo
 
 ## Configuration
 
-All configuration of the app id done through environment variables. Authentication settings are required, the other options are, um, optional.
+All configuration is done through environment variables. Authentication settings are required, the other options are, um, optional.
 
 Corporate Tool uses [OmniAuth](https://github.com/omniauth/omniauth) to authenticate users with Google App's OAuth, the following credentials must be set on environment variables.
 
 - `GOOGLE_CLIENT_ID` - Google OAuth Client ID
 - `GOOGLE_CLIENT_SECRET` - Google OAuth Client Secret Key
-- `GOOGLE_HOME_DOMAIN` - Optional. Restrict access to only this Google apps domain
+- `GOOGLE_HOME_DOMAIN` - Optional: Restrict access to only this Google apps domain
 
 See [`.env-example`](/.env-example) for instructions for setting up the cerdentials, and examples and, a full list of settings.
 
