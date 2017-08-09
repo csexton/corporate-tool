@@ -55,4 +55,16 @@ RSpec.describe "Uploads", type: :request do
     end
   end
 
+  describe "POST iframe create" do
+    it "renders the javascript callback into the page" do
+      sign_in rory
+
+      post uploads_path, params: {upload: valid_attributes, strategy: "iframe"}
+
+      # This is a ejs-like callback that happens when the form posts to the
+      # iframe directly. See uploads.coffee for details.
+      expect(response.body).to include "parent.handle_iframe_upload("
+
+    end
+  end
 end
