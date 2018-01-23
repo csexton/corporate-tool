@@ -44,7 +44,7 @@ Corporate Tool uses [OmniAuth](https://github.com/omniauth/omniauth) to authenti
 - `GOOGLE_CLIENT_SECRET` - Google OAuth Client Secret Key
 - `GOOGLE_HOME_DOMAIN` - Optional: Restrict access to only this Google apps domain
 
-See [`.env-example`](/.env-example) for instructions for setting up the cerdentials, and examples and, a full list of settings.
+See [`.env-example`](/.env-example) for instructions for setting up the credentials, and examples and, a full list of settings.
 
 # License
 
