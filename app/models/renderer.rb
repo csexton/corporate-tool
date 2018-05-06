@@ -1,9 +1,3 @@
-# I would much rather use html-pipeline but seems like that is problematic on
-# the heroku, so I am doing all this for now.
-#
-# https://github.com/jch/html-pipeline/issues/33
-#
-#
 class Renderer
   def self.markdown(body)
     new.render_markdown(body).html_safe unless body.empty?
@@ -11,12 +5,6 @@ class Renderer
 
   def self.gist(file)
     new.render_gist(file).html_safe unless file.body.empty?
-  end
-
-  class HTMLwithPygments < Redcarpet::Render::HTML
-    def block_code(code, language)
-      Pygments.highlight(code, lexer: language)
-    end
   end
 
   def emojify(content)
@@ -29,8 +17,16 @@ class Renderer
     end if content.present?
   end
 
+  def highlightify(content, lang)
+    lexer = ::Rouge::Lexer.find_fancy(lang, content)
+    formatter = Rouge::Formatters::HTML.new
+    formatter = Rouge::Formatters::HTMLTable.new(formatter)
+    formatter = Rouge::Formatters::HTMLPygments.new(formatter, css_class='rouge-wrapper')
+    formatter.format(lexer.lex(content))
+  end
+
   def render_markdown(body)
-    opts = {input: 'GFM', syntax_highlighter: :rouge}
+    opts = { input: 'GFM', syntax_highlighter: :rouge }
     emojify(Kramdown::Document.new(body, opts).to_html)
   end
 
@@ -38,10 +34,7 @@ class Renderer
     if gist.file_type == 'markdown'
       render_markdown gist.body
     else
-      Pygments.highlight(gist.body,
-                         lexer: gist.file_type,
-                         options: {linenos: 'table'})
+      highlightify(gist.body, gist.file_type)
     end
   end
 end
-

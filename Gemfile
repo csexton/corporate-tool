@@ -2,37 +2,38 @@ ruby File.open('.ruby-version', 'rb') { |f| f.read.chomp }
 source 'https://rubygems.org'
 source 'https://rails-assets.org'
 
-gem 'rails', '5.0.2'
+gem 'rails', '5.2.0'
+
 gem 'pg'
 gem 'pg_search'
 gem 'puma'
 gem 'redis'
 
-gem 'kaminari', git: "https://github.com/amatsuda/kaminari.git", branch: 'master'
-gem 'paper_trail'
-gem 'aws-sdk', require: false
-gem 'rails_12factor',   group: :production
 gem "omniauth-google-oauth2"
+gem 'aws-sdk-s3', require: false
+gem 'kaminari'
+gem 'paper_trail'
+gem 'rails_12factor',   group: :production
 
 # Markdown
 
-gem 'redcarpet'
-gem 'github-markup', require: 'github/markup'
-gem 'pygments.rb'
 gem 'gemoji'
+gem 'github-markup', require: 'github/markup'
+gem 'kramdown'
+gem 'rouge'
 
 # Views
 
-gem 'slim-rails'
 gem 'jbuilder', '~> 2.5'
 gem 'nested_form'
+gem 'slim-rails'
 
 # Assets
 
+gem 'bootstrap', '4.0.0.alpha6'
 gem 'font-awesome-rails'
-gem 'sass-rails'
-gem 'bootstrap', '~> 4.0.0.alpha6'
 gem 'rails-assets-ace-builds'
+gem 'sass-rails'
 
 # Javascript
 
@@ -42,18 +43,18 @@ gem 'coffee-rails', '~> 4.2'
 
 # Documentation
 
-gem 'sdoc',          group: :doc, require: false
+gem 'sdoc', group: :doc, require: false
 
 group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'dotenv-rails'
-  gem 'rspec-rails'
   gem 'capybara'
-  gem 'launchy'
-  gem 'pry-rails'
-  gem 'pry-byebug'
   gem 'database_cleaner'
+  gem 'dotenv-rails'
+  gem 'launchy'
+  gem 'pry-byebug'
+  gem 'pry-rails'
+  gem 'rspec-rails'
 end
 
 group :development do

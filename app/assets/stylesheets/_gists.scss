@@ -24,6 +24,8 @@
 }
 
 .gist-file-name {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
   background: #f7f7f7;
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
   font-size: 12px;

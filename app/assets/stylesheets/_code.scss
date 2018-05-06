@@ -1,45 +1,23 @@
-table.highlighttable {
-  margin: 0;
+
+.rouge-wrapper {
+  margin-bottom: 0;
 }
-.highlighttable {
-    padding: 5px;
-  padding: 6px 10px;
-    font-weight: 100;
-  table {
-    border-collapse: collapse;
-    margin: 10px;
-    table-layout: fixed;
-    width: 100%;
-  }
 
-  th {
-    border-bottom: none;
-    font-weight: normal;
-    padding: 0;
-    text-align: left;
-  }
+.rouge-code pre {
+  padding-left: 5px;
+}
 
-  td {
-    border-bottom: none;
-    padding: 0;
-  &.linenos {
+.rouge-gutter {
+  border-radius: 0.25rem;
+  background-color: #00a;
+  width: 40px;
+  border-right: 1px solid #ccc;
+  background: #fdfdfd;
+  margin-right: 3px;
+  pre.lineno {
+    color: #AAA;
     padding: 4px;
     text-align: right;
-    width: 40px;
-    pre {
-      color: #AAA;
-    }
-  }
-  &.code {
-    padding: 0 4px;
-  }
-  }
-  tr, td, th {
-    vertical-align: middle;
-  }
-
-  pre {
-    font-size: 80%;
   }
 }
 
