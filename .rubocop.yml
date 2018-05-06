@@ -1,0 +1,382 @@
+AllCops:
+  TargetRubyVersion: 2.5.0
+  Exclude:
+    # Exclude generated binstubs
+    - 'bin/bundle'
+    - 'bin/bundler-travis'
+    - 'bin/pry'
+    - 'bin/rake'
+    - 'bin/rspec'
+    - 'bin/rubocop'
+    - 'bin/travis'
+    - 'bin/yard'
+    # Exclude vendored content
+    - 'vendor/**/*'
+  Include:
+    - '**/Brewfile'
+    - '**/Rakefile'
+
+# Modifiers should be indented as deep as method definitions, or as deep as the
+# class/module keyword, depending on configuration.
+#
+# Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
+# SupportedStyles: outdent, indent
+Layout/AccessModifierIndentation:
+  EnforcedStyle: outdent
+
+# Disabling this until it is fixed to support multi-line block chains using the
+# semantic style.
+#
+# See https://github.com/bbatsov/rubocop/issues/5655
+#
+# Configuration parameters: EnforcedStyleAlignWith.
+# SupportedStylesAlignWith: either, start_of_block, start_of_line
+Layout/BlockAlignment:
+  Enabled: false
+
+# Disabling this until it is fixed to handle multi-line method chains where the
+# first method call is multi-line.
+#
+# See # https://github.com/bbatsov/rubocop/issues/5650
+Layout/ClosingParenthesisIndentation:
+  Enabled: false
+
+# Disabling this until it is fixed to handle multi-line method chains where the
+# first method call is multi-line.
+#
+# See # https://github.com/bbatsov/rubocop/issues/5650
+#
+# Configuration parameters: EnforcedStyle, IndentationWidth.
+# SupportedStyles: consistent, special_for_inner_method_call, special_for_inner_method_call_in_parentheses
+Layout/FirstParameterIndentation:
+  Enabled: false
+
+# Often with benchmarking we don't explictly "use" a variable or return value.
+# We simply need to perform the operation which generates said value for the
+# benchmark.
+#
+# Configuration parameters: CheckForMethodsWithNoSideEffects.
+Lint/Void:
+  Exclude:
+    - 'benchmarks/**/*'
+
+# Configuration parameters: CountComments, ExcludedMethods, Max.
+Metrics/BlockLength:
+  Exclude:
+    - '**/Rakefile'
+    - '**/*.rake'
+    - 'spec/spec_helper.rb'
+    - 'spec/**/*_spec.rb'
+    - 'spec/support/model_factories.rb'
+
+# Configuration parameters: ExpectMatchingDefinition, Regex, IgnoreExecutableScripts, AllowedAcronyms.
+# AllowedAcronyms: CLI, DSL, ACL, API, ASCII, CPU, CSS, DNS, EOF, GUID, HTML, HTTP, HTTPS, ID, IP, JSON, LHS, QPS, RAM, RHS, RPC, SLA, SMTP, SQL, SSH, TCP, TLS, TTL, UDP, UI, UID, UUID, URI, URL, UTF8, VM, XML, XMPP, XSRF, XSS
+Naming/FileName:
+  Exclude:
+    - '**/Gemfile'
+    - '**/*.gemspec'
+    - '**/Brewfile'
+
+# `alias` behavior changes on scope. In general we expect the behavior to be
+# that which is defined by `alias_method`.
+#
+# See https://stackoverflow.com/questions/4763121/should-i-use-alias-or-alias-method
+#
+# Configuration parameters: EnforcedStyle.
+# SupportedStyles: prefer_alias, prefer_alias_method
+Style/Alias:
+  EnforcedStyle: prefer_alias_method
+
+# Use semantic style for blocks:
+#   - Prefer `do...end` over `{...}` for procedural blocks.
+#   - Prefer `{...}` over `do...end` for functional blocks.
+#
+# When the return value of the method receiving the block is important prefer
+# `{..}` over `do..end`.
+#
+# Configuration parameters: EnforcedStyle, SupportedStyles, ProceduralMethods,
+#   FunctionalMethods, IgnoredMethods.
+# SupportedStyles: line_count_based, semantic, braces_for_chaining
+Style/BlockDelimiters:
+  Details: |
+    Use semantic style for blocks:
+      - Prefer `do...end` over `{...}` for procedural blocks.
+      - Prefer `{...}` over `do...end` for functional blocks.
+
+    When the return value of the method receiving the block is important prefer
+    `{..}` over `do..end`.
+  Enabled: true
+  EnforcedStyle: semantic
+  ProceduralMethods:
+    - benchmark
+    - bm
+    - bmbm
+    - measure
+    - realtime
+    - with_object
+  FunctionalMethods:
+    - each_with_object
+    - git_source
+    - let
+    - let!
+    - new
+    - subject
+    - tap
+    - watch
+  IgnoredMethods:
+    - lambda
+    - proc
+    - it
+
+# Using `case` instead of an `if` expression when the case condition is empty
+# can be more expressive of intent. Using multiple "cases" informs the reader
+# that all of the conditions are related or coupled in a meaningful way.
+# Multi-branch `if` expressions do not necessarily convey this relation. They
+# may simply be separate branching logic and possibly only flattened for
+# readability.
+Style/EmptyCaseCondition:
+  Enabled: false
+
+# Always write methods on multiple lines.
+#
+# Configuration parameters: EnforcedStyle.
+# SupportedStyles: compact, expanded
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
+# Prefer symbol keys using the 1.9 hash syntax. However, when keys are mixed
+# use a consistent mapping style; which generally means using hash rockets:
+#
+#     # bad
+#     {:a => 2}
+#     {b: 1, :c => 2}
+#     {d: 1, 'e' => 2}
+#
+#     # good
+#     {a: 2, b: 1}
+#     {:c => 2, 'd' => 2} # acceptable since 'd' isn't a symbol
+#
+# Configuration parameters: EnforcedStyle, UseHashRocketsWithSymbolValues, PreferHashRocketsForNonAlnumEndingSymbols.
+# SupportedStyles: ruby19, hash_rockets, no_mixed_keys, ruby19_no_mixed_keys
+Style/HashSyntax:
+  Details: |
+    Prefer symbol keys using the 1.9 hash syntax. However, when keys are mixed
+    use a consistent mapping style; which generally means using hash rockets.
+  EnforcedStyle: ruby19_no_mixed_keys
+
+# As part of our semantic style we generally use the literal `-> { }` format to
+# indicate this is a function with a return value we care about. As this cop
+# doesn't have a more flexible setting we prefer the literal syntax to the
+# lambda version.
+#
+# Configuration parameters: EnforcedStyle.
+# SupportedStyles: line_count_dependent, lambda, literal
+Style/Lambda:
+  Details: |
+    As part of our semantic style we generally use the literal `-> { }` format
+    to indicate this is a function with a return value we care about. As this
+    cop doesn't have a more flexible setting we prefer the literal syntax to
+    the lambda version.
+  EnforcedStyle: literal
+
+# Avoid chaining a method call on a do...end block. This breaks semantic style
+# reducing contextual information.
+Style/MethodCalledOnDoEndBlock:
+  Details: "This breaks semantic style reducing contextual information."
+  Enabled: true
+
+# With semantic style (functional blocks) it's common to chain several methods
+# to avoid creating multiple intermediate local variables. Block length is
+# generally not an issue here as these types of usage tend to produce short (<
+# 5 LOC) multi-line blocks.
+Style/MultilineBlockChain:
+  Enabled: false
+
+# Context for this cop is too dependent. Often using the numeric comparision is
+# faster. An in certain contexts, Also, depending on the context a numeric
+# comparison is more consistent and can even be more natural:
+#
+#     # numeric comparison is more natural and consistent
+#     if n < 0
+#     elsif n < 5
+#     elsif n < 20
+#     end
+#
+# Configuration parameters: AutoCorrect, EnforcedStyle.
+# SupportedStyles: predicate, comparison
+Style/NumericPredicate:
+  Enabled: false
+
+# Prefer slashes for simple expressions. For multi-line use percent literal
+# to support comments and other advanced features.
+#
+# Configuration parameters: EnforcedStyle, AllowInnerSlashes.
+# SupportedStyles: slashes, percent_r, mixed
+Style/RegexpLiteral:
+  EnforcedStyle: mixed
+
+# We generally prefer double quotes but many generators use single quotes. We
+# don't view the performance difference to be all that much so we don't care
+# if the style is mixed or double quotes are used for static strings.
+#
+# Configuration parameters: EnforcedStyle, SupportedStyles, ConsistentQuotesInMultiline.
+# SupportedStyles: single_quotes, double_quotes
+Style/StringLiterals:
+  Enabled: false
+
+# When ternaries become complex they can be difficult to read due to increased
+# cognative load parsing the expression. Cognative load can increase further
+# when assignment is involved.
+#
+# Configuration parameters: EnforcedStyle, AllowSafeAssignment.
+# SupportedStyles: require_parentheses, require_no_parentheses, require_parentheses_when_complex
+Style/TernaryParentheses:
+  AllowSafeAssignment: false
+  Details: |
+    When ternaries become complex they can be difficult to read due to
+    increased cognative load parsing the expression. Cognative load can
+    increase further when assignment is involved. To help reduce this cognative
+    use parentheses for complex expressions.
+  EnforcedStyle: require_parentheses_when_complex
+
+# Always use trailing commas for multiline. This makes git diffs easier to read
+# by cutting down on noise when commas are appended.
+#
+# However, specs often multi-line `expect()` for readability with long lines.
+# We don't want to enforce a trailing comma in that case. Ideally, there would
+# be another option to only enforce a consistent comma when there is more than
+# one argument.
+#
+# Configuration parameters: EnforcedStyleForMultiline.
+# SupportedStylesForMultiline: comma, consistent_comma, no_comma
+Style/TrailingCommaInArguments:
+  Details: |
+    Always use trailing commas for multiline arguments. This makes git diffs
+    easier to read by cutting down on noise when commas are appended. It also
+    simplifies adding, removing, and swapping argument orders.
+  EnforcedStyleForMultiline: consistent_comma
+  Exclude:
+    - 'spec/**/*_spec.rb'
+
+# Always use trailing commas for multiline. This makes git diffs easier to read
+# by cutting down on noise when commas are appended.
+#
+# Configuration parameters: EnforcedStyleForMultiline.
+# SupportedStylesForMultiline: comma, consistent_comma, no_comma
+Style/TrailingCommaInArrayLiteral:
+  Details: |
+    Always use trailing commas for multiline arrays. This makes git diffs
+    easier to read by cutting down on noise when commas are appended. It also
+    simplifies adding, removing, and re-arranging the elements.
+  EnforcedStyleForMultiline: consistent_comma
+
+# Always use trailing commas for multiline. This makes git diffs easier to read
+# by cutting down on noise when commas are appended.
+#
+# Configuration parameters: EnforcedStyleForMultiline.
+# SupportedStylesForMultiline: comma, consistent_comma, no_comma
+Style/TrailingCommaInHashLiteral:
+  Details: |
+    Always use trailing commas for multiline hashes. This makes git diffs
+    easier to read by cutting down on noise when commas are appended. It also
+    simplifies adding, removing, and re-arranging the elements.
+  EnforcedStyleForMultiline: consistent_comma
+
+# When it comes to constants it's safer to place the constant on the right-hand
+# side. With a constant accidental assignment will produce a syntax error.
+#
+# Configuration parameters: EnforcedStyle.
+# SupportedStyles: all_comparison_operators, equality_operators_only
+Style/YodaCondition:
+  Enabled: false
+
+
+
+# Rails foreign keys and indexes can get long. We want to ignore our annotation
+# comments which are for these entries.
+#
+# Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
+# URISchemes: http, https
+Metrics/LineLength:
+  IgnoredPatterns:
+    - '\A#  fk_rails_'
+    - '\A#  index_'
+
+# As Rails defaults to creating timestamps you need to go out of your way to
+# explicitly have them removed from the table. This cop is almost always a
+# false negative so we're disabling it.
+#
+# Configuration parameters: Include.
+# Include: db/migrate/*.rb
+Rails/CreateTableWithTimestamps:
+  Enabled: false
+
+# The ActiveSupport monkey patches for `present?` are nearly all defiend as:
+#
+#     !blank?
+#
+# For most of use `unless blank?` reads just as easily as `if present?`.
+# Sometimes contextually, it can read better depending on the branch logic and
+# surrounding context. As `if present?` requires an additional negation and
+# method call it is technically slower. In the general case the perf different
+# isn't much but in some cases it matters. Thus, we are not enforcing changing
+# `unless blank?` to `if present?` and are leaving it up to the context to
+# decide which is a better fit.
+#
+# Cop supports --auto-correct.
+# Configuration parameters: NotNilAndNotEmpty, NotBlank, UnlessBlank.
+Rails/Present:
+  UnlessBlank: false
+
+# We prefer you use the attribute readers and writes. For those special cases
+# where the intent is really to interact with the raw underlying attribute we
+# prefer `read_attribute` and `write_attribute`; as this makes the intent
+# explict. Ideally we'd never use the hash like accessor `[:attr]`.
+#
+# We disable this cop because it is not configurable.
+#
+# Configuration parameters: Include.
+# Include: app/models/**/*.rb
+Rails/ReadWriteAttribute:
+  Enabled: false
+
+# According to the Rails docs while the following methods skip validations they
+# only update the specified (single) attribute reducing risks. We'd rather not
+# warn for those cases:
+#
+#   - decrement!
+#   - increment!
+#   - touch
+#
+# We are not excluding `toggle!` because it's more likely that a flag may have
+# validations associated with it (or is used by other validations).
+#
+# See:
+#
+#   - http://api.rubyonrails.org/classes/ActiveRecord/CounterCache/ClassMethods.html
+#   - http://api.rubyonrails.org/classes/ActiveRecord/Persistence.html
+#   - http://api.rubyonrails.org/classes/ActiveRecord/Relation.html
+#
+# Blacklist: decrement!, decrement_counter, increment!, increment_counter, toggle!, touch, update_all, update_attribute, update_column, update_columns, update_counters
+Rails/SkipsModelValidations:
+  Blacklist:
+    - 'decrement_counter'
+    - 'increment_counter'
+    - 'toggle!'
+    - 'update_all'
+    - 'update_attribute'
+    - 'update_column'
+    - 'update_columns'
+    - 'update_counters'
+
+# Rails uses compact style by default so we're disabling this with a :hammer:
+# for things likely to be generated by Rails (i.e. most things in app).
+#
+# Configuration parameters: AutoCorrect, EnforcedStyle.
+# SupportedStyles: nested, compact
+Style/ClassAndModuleChildren:
+  Exclude:
+    - 'app/**/*'
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
