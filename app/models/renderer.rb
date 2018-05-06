@@ -6,11 +6,11 @@
 #
 class Renderer
   def self.markdown(body)
-    self.new.render_markdown(body).html_safe unless body.empty?
+    new.render_markdown(body).html_safe unless body.empty?
   end
 
   def self.gist(file)
-    self.new.render_gist(file).html_safe unless file.body.empty?
+    new.render_gist(file).html_safe unless file.body.empty?
   end
 
   class HTMLwithPygments < Redcarpet::Render::HTML
@@ -30,19 +30,8 @@ class Renderer
   end
 
   def render_markdown(body)
-    renderer = HTMLwithPygments.new(with_toc_data: true)
-    markdown = Redcarpet::Markdown.new(renderer,
-                                       autolink: true,
-                                       fenced_code_blocks: true,
-                                       footnotes: true,
-                                       hard_wrap: true,
-                                       lax_spacing: true,
-                                       no_intra_emphasis: true,
-                                       space_after_headers: true,
-                                       strikethrough: true,
-                                       tables: true
-                                      )
-    emojify(markdown.render(body))
+    opts = {input: 'GFM', syntax_highlighter: :rouge}
+    emojify(Kramdown::Document.new(body, opts).to_html)
   end
 
   def render_gist(gist)
