@@ -5,7 +5,7 @@ RSpec.describe "Welcome", :type => :request do
   describe "GET 'auth'" do
     it "returns http success" do
       get welcome_auth_path
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 

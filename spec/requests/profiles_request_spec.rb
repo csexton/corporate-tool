@@ -7,12 +7,11 @@ RSpec.describe "Profiles", type: :request do
     it "returns http success" do
       sign_in rory
       get profile_path
-      expect(response).to have_http_status(:success)
+      expect(response).to have_http_status(:ok)
     end
   end
 
   describe "POST #update" do
     it "updates the user's name"
   end
-
 end

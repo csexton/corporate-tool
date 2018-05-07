@@ -1,4 +1,4 @@
-require 'aws-sdk'
+require 'aws-sdk-s3'
 
 class UploadProcessors::S3
   attr_reader :file

@@ -28,7 +28,10 @@
               | -
               =<> link_to "Older Versions", versions_page_path(page)
           - if Upload.enabled?
-            span Attach files by dragging & dropping, or pasting from the clipboard.
+            span
+              | Attach files by dragging & dropping,
+              a#upload_link< href="#" selecting them
+              | , or pasting from the clipboard.
           span<>
             | Markdown supported.
     #preview.tab-pane role="tabpanel"
@@ -43,3 +46,9 @@
           = fa_icon 'save', text: "Save"
       - if page.persisted?
         =<> link_to fa_icon("trash-o", text: "Delete"), page, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-danger"
+
+div style="display:none"
+  iframe id="upload_frame" name="upload_frame" style="display: none"
+  == form_for @upload=Upload.new, html: {target: :upload_frame} do |f|
+    = f.file_field :file
+    input type="hidden" name="strategy" value="iframe"

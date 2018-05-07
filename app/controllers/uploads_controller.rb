@@ -22,14 +22,29 @@ class UploadsController < ApplicationController
     file = params[:file] || params[:upload][:file]
     @upload = Upload.create_with_file file, current_user
 
+    # TODO: the check to see if this is being posted from an iframe really
+    # makes this action a mess. This needs to be refactored, possibly to a
+    # differnt controller action.
     respond_to do |format|
       if @upload.save
         @message = "Upload was successfully created."
-        format.html { redirect_to @upload, notice: @message }
+        format.html {
+          if iframe?
+            render :create, status: :ok, layout: nil
+          else
+            redirect_to @upload, notice: @message
+          end
+        }
         format.json { render :show, status: :ok, location: @upload }
       else
         @message = "Error uploading: #{@upload.errors}"
-        format.html { render :new }
+        format.html {
+          if iframe?
+            render :create, status: :ok, layout: nil
+          else
+            render :new
+          end
+        }
         format.json { render json: @upload.errors, status: :unprocessable_entity }
       end
     end
@@ -47,6 +62,10 @@ class UploadsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_upload
       @upload = Upload.where(user: current_user).find(params[:id])
+    end
+
+    def iframe?
+      params[:strategy] == "iframe"
     end
 
 end

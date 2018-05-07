@@ -1,5 +1,6 @@
 language: ruby
 cache: bundler
+before_install: gem install bundler
 script:
-  - "bundle exec rails db:setup"
-  - "bundle exec rspec"
+  - "./bin/rails db:setup"
+  - "./bin/rspec"
