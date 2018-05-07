@@ -45,8 +45,23 @@ RSpec.describe Gist, type: :model do
       uploader = UploadProcessors::Filesystem.new(tardis)
       upload = Upload.create_with_file(tardis, rory)
       expect(upload.valid?).to be true
-      expect(upload.url).to match /\/uploads\/.*\.png/
+      expect(upload.url).to match(/\/uploads\/.*\.png/)
     end
+  end
 
+  it "puts a bang on an image markdown link" do
+    upload = Upload.new url: "https://example.com/image.png",
+                        file_name: "png",
+                        file_type: "image/png"
+
+    expect(upload.markdown_link).to eq "![png](https://example.com/image.png)"
+  end
+
+  it "formats a markdown link" do
+    upload = Upload.new url: "https://example.com/file.zip",
+                        file_name: "zip",
+                        file_type: "application/zip"
+
+    expect(upload.markdown_link).to eq "[zip](https://example.com/file.zip)"
   end
 end

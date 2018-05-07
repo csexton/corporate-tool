@@ -34,7 +34,7 @@ class Upload < ActiveRecord::Base
     end
 
     def create_with_file(file, user)
-      self.new.create_with_file(file, user)
+      new.create_with_file(file, user)
     end
   end
 
@@ -46,6 +46,14 @@ class Upload < ActiveRecord::Base
     self.url = self.class.processor.new(file).run
 
     self
+  end
+
+  def image?
+    %w[image/jpeg image/png image/jpg image/gif].include? file_type
+  end
+
+  def markdown_link
+    "#{"!" if image?}[#{file_name}](#{url})"
   end
 end
 
