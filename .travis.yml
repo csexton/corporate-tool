@@ -1,5 +1,5 @@
 language: ruby
 cache: bundler
 script:
-  - "bundle exec rails db:setup"
-  - "bundle exec rspec"
+  - "./bin/rails db:setup"
+  - "./bin/rspec"
