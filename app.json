@@ -13,14 +13,12 @@
   "logo": "https://raw.githubusercontent.com/csexton/corporate-tool/master/graphics/github-readme.png",
   "success_url": "/setup",
   "scripts": {},
-  {
-    "buildpacks": [ { "url": "heroku/ruby" } ],
-    "environments": {
-      "test": {
-        "addons": ["heroku-postgresql:in-dyno", "heroku-redis:in-dyno"]
-      }
+  "environments": {
+    "test": {
+      "addons": ["heroku-postgresql:in-dyno", "heroku-redis:in-dyno"]
     }
   },
+  "buildpacks": [ { "url": "heroku/ruby" } ],
   "addons": [],
   "env": {
     "SITE_NAME": {
