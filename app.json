@@ -14,12 +14,10 @@
   "success_url": "/setup",
   "scripts": {},
   "environments": {
-    "test": {
-      "addons": ["heroku-postgresql:in-dyno", "heroku-redis:in-dyno"]
-    }
+    "test": { "addons": ["heroku-postgresql:in-dyno", "heroku-redis:in-dyno"] }
   },
   "buildpacks": [ { "url": "heroku/ruby" } ],
-  "addons": [],
+  "addons": [ "heroku-postgresql", "heroku-redis" ],
   "env": {
     "SITE_NAME": {
       "description": "Display Name of the site.",
