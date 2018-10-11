@@ -31,27 +31,33 @@
     },
     "GOOGLE_HOME_DOMAIN": {
       "description": "Optional. If you want to restrict access to only one Google apps domain, specify that domain here. Otherwise anyone with a Google account will be able to login",
-      "value": ""
+      "value": "",
+      "required": false
     },
     "UPLOAD_PROCESSOR": {
       "description": "Optional. Needed to enable uploads. Use 's3' to upload to an AWS S3 bucket.",
-      "value": ""
+      "value": "",
+      "required": false
     },
     "S3_BUCKET": {
       "description": "Optional. Needed to enable uploads to S3",
-      "value": ""
+      "value": "",
+      "required": false
     },
     "AWS_ACCESS_KEY_ID": {
       "description": "Optional. Needed to enable uploads to S3",
-      "value": ""
+      "value": "",
+      "required": false
     },
     "AWS_SECRET_ACCESS_KEY": {
       "description": "Optional. Needed to enable uploads to S3",
-      "value": ""
+      "value": "",
+      "required": false
     },
     "AWS_REGION": {
       "description": "Optional. Needed to enable uploads to S3",
-      "value": "us-east-1"
+      "value": "us-east-1",
+      "required": false
     }
 
 
