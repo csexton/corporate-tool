@@ -1,5 +1,3 @@
-![Travis Status](https://travis-ci.org/csexton/corporate-tool.svg?branch=master)
-
 ![CorporateTool Logo](/graphics/github-readme.png?raw=true "Project Logo")
 
 Self Hosted Wiki and Pastebin
