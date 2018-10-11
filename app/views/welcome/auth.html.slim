@@ -16,7 +16,7 @@ html lang="en"
               - flash.each do |type, message|
                 .alert class=bootstrap_class_for(type) role="alert"
                   = message
-              h1 Welcome
+              h1 Welcome!
               - if ENV['GOOGLE_HOME_DOMAIN']
                 p You need to login with a #{ENV['GOOGLE_HOME_DOMAIN']} account to continue.
               - else
