@@ -22,12 +22,12 @@
     "GOOGLE_CLIENT_ID": {
       "description": "Google OAuth Client ID",
       "value": "",
-      "required": true
+      "required": false
     },
     "GOOGLE_CLIENT_SECRET": {
       "description": "Google OAuth Client Secret Key",
       "value": "",
-      "required": true
+      "required": false
     },
     "GOOGLE_HOME_DOMAIN": {
       "description": "Optional. If you want to restrict access to only one Google apps domain, specify that domain here. Otherwise anyone with a Google account will be able to login",
