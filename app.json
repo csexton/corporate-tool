@@ -12,7 +12,6 @@
   "repository": "http://github.com/csexton/corporate-tool",
   "logo": "https://raw.githubusercontent.com/csexton/corporate-tool/master/graphics/github-readme.png",
   "success_url": "/setup",
-  "scripts": {},
   "environments": {
     "test": { "addons": ["heroku-postgresql:in-dyno", "heroku-redis:in-dyno"] }
   },
@@ -53,8 +52,7 @@
       "required": false
     },
     "AWS_REGION": {
-      "description": "Optional. Needed to enable uploads to S3",
-      "value": "us-east-1",
+      "description": "Optional. Needed to enable uploads to S3 (e.g. us-east-1)",
       "required": false
     }
   }
