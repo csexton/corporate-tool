@@ -30,7 +30,7 @@ gem "slim-rails"
 
 # Assets
 
-gem "bootstrap", "4.0.0.alpha6"
+gem "bootstrap", "~> 4.0"
 gem "font-awesome-rails"
 gem "rails-assets-ace-builds"
 gem "sass-rails"
