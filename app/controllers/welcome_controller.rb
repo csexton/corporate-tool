@@ -6,6 +6,7 @@ class WelcomeController < ApplicationController
   end
 
   def auth
+    @query = { origin: params[:origin] }.to_query if params[:origin]
     render layout: nil
   end
 end

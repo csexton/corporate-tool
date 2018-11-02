@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
         render json: {error: '401 Unauthorized'}, status: :unauthorized
       else
         if request.fullpath
-          redirect_to welcome_auth_path
+          redirect_to welcome_auth_path(origin: request.fullpath)
         else
           redirect_to root_url
         end
