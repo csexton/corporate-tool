@@ -1,4 +1,4 @@
-class CreateGists < ActiveRecord::Migration[4.1]
+class CreateGists < ActiveRecord::Migration[4.2]
   def change
     create_table :gists do |t|
       t.string :description
