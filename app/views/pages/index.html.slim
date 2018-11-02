@@ -5,8 +5,10 @@ h1 All Wiki Pages
     table.table
       tr
         thead
-          td Path
-          td Last Updated
+          td
+            a.badge.badge-secondary href=pages_path(sort: :path) Path
+          td
+            a.badge.badge-secondary href=pages_path(sort: :updated) Last Updated
       - @pages.each do |page|
         tr
           td
@@ -14,3 +16,4 @@ h1 All Wiki Pages
           td
             = "#{time_ago_in_words page.updated_at} ago"
 
+= paginate @pages

@@ -35,7 +35,17 @@ class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
   def index
-    @pages = Page.all.order(path: :asc)
+    @pages = Page.all
+    case params.fetch(:sort, "path")
+    when "updated"
+      @pages = @pages.order(updated_at: :desc)
+    when "created"
+      @pages = @pages.order(created_at: :desc)
+    else
+      @pages = @pages.order(path: :asc)
+    end
+
+    @pages = @pages.page params[:page]
   end
 
   # GET /pages/1
