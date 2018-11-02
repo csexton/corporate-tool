@@ -1,4 +1,4 @@
-class CreateGistFiles < ActiveRecord::Migration
+class CreateGistFiles < ActiveRecord::Migration[4.1]
   def change
     create_table :gist_files do |t|
       t.string :file_type
