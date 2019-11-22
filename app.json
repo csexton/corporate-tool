@@ -1,9 +1,8 @@
 {
   "name": "Corporate Tool",
-  "description": "Simple wiki and code gists for your orgnization.",
+  "description": "Simple wiki for your orgnization.",
   "keywords": [
     "wiki",
-    "gist",
     "paste",
     "oauth",
     "productivity"

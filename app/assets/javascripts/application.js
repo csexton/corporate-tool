@@ -24,16 +24,6 @@
 //= require bootstrap/scrollspy
 //= require bootstrap/tab
 
-//= require ace-builds/src-noconflict/ace
-//= require ace-builds/src-noconflict/theme-github
-//= require ace-builds/src-noconflict/mode-ruby
-//= require ace-builds/src-noconflict/mode-markdown
-//= require ace-builds/src-noconflict/mode-coffee
-//= require ace-builds/src-noconflict/mode-sh
-//= require ace-builds/src-noconflict/mode-json
-//= require ace-builds/src-noconflict/mode-html
-//= require ace-builds/src-noconflict/mode-css
-//= require jquery-ace
 //= require inline-attachment
 //= require jquery.inline-attachment
 //= require_tree .

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Gist, type: :model do
+RSpec.describe Upload, type: :model do
   include ActionDispatch::TestProcess
   let(:rory) { User.create!(name: 'Rory', uid: "1")}
   let(:tardis) { fixture_file_upload("spec/fixtures/tardis.png") }

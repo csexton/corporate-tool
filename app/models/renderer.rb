@@ -3,10 +3,6 @@ class Renderer
     new.render_markdown(body).html_safe unless body.empty?
   end
 
-  def self.gist(file)
-    new.render_gist(file).html_safe unless file.body.empty?
-  end
-
   def emojify(content)
     content.to_str.gsub(/:([a-z0-9\+\-_]+):/) do |match|
       if Emoji.find_by_alias($1)
@@ -28,13 +24,5 @@ class Renderer
   def render_markdown(body)
     opts = { input: 'GFM', syntax_highlighter: :rouge }
     emojify(Kramdown::Document.new(body, opts).to_html)
-  end
-
-  def render_gist(gist)
-    if gist.file_type == 'markdown'
-      render_markdown gist.body
-    else
-      highlightify(gist.body, gist.file_type)
-    end
   end
 end

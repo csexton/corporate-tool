@@ -13,10 +13,6 @@ Self Hosted Wiki and Pastebin
 
 ![Wiki Screenshot](/graphics/screenshot-wiki-edit.png?raw=true "Screen Shot")
 
-![Gist Screenshot](/graphics/screenshot-gist-show.png?raw=true "Screen Shot")
-
-![Gist Screenshot](/graphics/screenshot-gist-edit.png?raw=true "Screen Shot")
-
 ## Deploy to Heroku
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
