@@ -5,28 +5,13 @@
         input#search_field.form-control.mr-sm-2 name="q" placeholder="Search" type="text" value=@query
       .col-sm-2
         input.btn.btn-primary type="submit" value="Search"
-    .form-group.row
-      .col-sm-12
-        label.custom-control.custom-radio
-          input#t_any.custom-control-input name="t" type="radio" value="Any" checked=model_type_checked("Any")
-          span.custom-control-indicator
-          span.custom-control-description Anything
-        label.custom-control.custom-radio
-          input#t_page.custom-control-input name="t" type="radio" value="Page" checked=model_type_checked("Page")
-          span.custom-control-indicator
-          span.custom-control-description Pages
-        label.custom-control.custom-radio
-          input#t_gist.custom-control-input name="t" type="radio" value="Gist" checked=model_type_checked("Gist")
-          span.custom-control-indicator
-          span.custom-control-description Gists
-
+  - if @results
+    .search-query
+      | Showing results for
+      code<
+        = @query
 
 br
-- if @results
-  .search-query
-    | Showing results for
-    code
-      = @query
 
   .search-results
     - @results&.each do |result|

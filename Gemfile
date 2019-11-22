@@ -33,7 +33,6 @@ gem "slim-rails"
 
 gem "bootstrap", "~> 4.0"
 gem "font-awesome-rails"
-gem "rails-assets-ace-builds"
 gem "sass-rails"
 
 # Javascript

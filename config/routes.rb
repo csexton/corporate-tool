@@ -8,7 +8,6 @@ Rails.application.routes.draw do
       get 'versions', action: :versions, as: :versions
     end
   end
-  resources :gists
   resources :uploads, except: [:edit, :update]
   resource  :profile, only: [:show, :update]
   get '/directory', to: "directory#index"
