@@ -3,7 +3,7 @@ class Page < ActiveRecord::Base
   validates_uniqueness_of :path
   has_paper_trail
 
-  include PgSearch
+  include PgSearch::Model
   multisearchable against: [:title, :body, :path]
 
   pg_search_scope :search_for, against: [:path, :body]
