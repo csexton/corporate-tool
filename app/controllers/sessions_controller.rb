@@ -5,6 +5,7 @@ class SessionsController < ApplicationController
     user = User.from_omniauth(request.env['omniauth.auth'])
     session[:user_id] = user.id
     url = request.env['omniauth.origin'] || root_url
+    url = root_url if url.ends_with? welcome_auth_path
     redirect_to url, notice: "Signed in."
   end
 
