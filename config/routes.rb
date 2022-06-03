@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   root 'welcome#index'
 
   resources :pages do
@@ -10,12 +9,12 @@ Rails.application.routes.draw do
   end
   resources :uploads, except: [:edit, :update]
   resource  :profile, only: [:show, :update]
+
   get '/directory', to: "directory#index"
   get '/directory/:id', to: "directory#show"
-  post 'preview', to: 'preview#show'
+  post '/preview', to: 'preview#show'
   get '/search', to: 'search#show'
-
-  get 'welcome/auth'
+  get '/welcome/auth'
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/auth/failure', to: 'sessions#failure'
   get '/signout', to: 'sessions#destroy'

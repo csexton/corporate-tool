@@ -2,7 +2,7 @@ ruby File.open(".ruby-version", "rb") { |f| f.read.chomp }
 source "https://rubygems.org"
 source "https://rails-assets.org"
 
-gem "rails", "6.0.1"
+gem "rails", "6.1.0"
 
 gem "pg"
 gem "pg_search"
@@ -12,6 +12,7 @@ gem "redis"
 gem "aws-sdk-s3", require: false
 gem "kaminari"
 gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
 gem "paper_trail"
 gem "rails_12factor", group: :production
 

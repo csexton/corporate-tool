@@ -22,7 +22,8 @@ html lang="en"
               - else
                 p You need to login to continue.
               p
-                a.btn.btn-primary href="/auth/google?#{@query}" Login with Google
+                = form_tag("/auth/google?#{@query}", method: 'post', data: {turbo: false}) do
+                  button.btn.btn-primary type='submit' Login with Google
 
     footer.footer
       .container
