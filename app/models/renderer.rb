@@ -1,3 +1,5 @@
+require 'kramdown-mermaid-rouge'
+
 class Renderer
   def self.markdown(body)
     new.render_markdown(body).html_safe unless body.empty?
@@ -22,7 +24,7 @@ class Renderer
   end
 
   def render_markdown(body)
-    opts = { input: 'GFM', syntax_highlighter: :rouge }
+    opts = { input: 'GFM', syntax_highlighter: :mermaid_rouge}
     emojify(Kramdown::Document.new(body, opts).to_html)
   end
 end

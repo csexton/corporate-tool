@@ -12,8 +12,20 @@ RSpec.describe Renderer, type: :model do
   it "renders a code span" do
     body = renderer.render_markdown("`x = Class.new`{:.language-ruby}")
 
-    expect(body).to include("language-ruby highlighter-rouge")
+    expect(body).to include("language-ruby highlighter-mermaid_rouge")
   end
+
+  it "renders a mermaid div" do
+    body = renderer.render_markdown <<~MARKDOWN
+      ```mermaid
+        graph TD
+        A[Markdown] --> B[Mermaid Graph]
+      ```
+    MARKDOWN
+
+    expect(body).to include("<div class=\"mermaid\">")
+  end
+
 
   it "renders fenced codeblock" do
     body = renderer.render_markdown <<~MARKDOWN

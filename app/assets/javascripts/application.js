@@ -26,5 +26,6 @@
 
 //= require inline-attachment
 //= require jquery.inline-attachment
+//= require mermaid
 //= require_tree .
 
