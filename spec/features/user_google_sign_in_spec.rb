@@ -23,7 +23,7 @@ feature 'Sign in via Google' do
 
 
     visit root_path
-    click_link 'Login with Google'
+    click_button 'Login with Google'
     expect(find('body')).to have_content('Signed in')
   end
 
