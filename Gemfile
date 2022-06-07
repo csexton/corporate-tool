@@ -1,6 +1,5 @@
 ruby File.open(".ruby-version", "rb") { |f| f.read.chomp }
 source "https://rubygems.org"
-source "https://rails-assets.org"
 
 gem "rails", "7.0.3"
 
