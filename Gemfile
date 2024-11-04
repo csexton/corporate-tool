@@ -1,7 +1,7 @@
 ruby File.open(".ruby-version", "rb") { |f| f.read.chomp }
 source "https://rubygems.org"
 
-gem "rails", "7.0.4.1"
+gem "rails", "7.0.8.6"
 
 gem "pg"
 gem "pg_search"
