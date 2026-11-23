@@ -8,6 +8,16 @@ gem "pg_search"
 gem "puma"
 gem "redis"
 
+# Former default gems no longer shipped with Ruby 3.4+/4.0
+gem "base64"
+gem "benchmark"
+gem "bigdecimal"
+gem "drb"
+gem "json", "< 3" # ActiveSupport 7.0 passes quirks_mode:, removed in json 3; drop with Rails upgrade
+gem "logger"
+gem "mutex_m"
+gem "ostruct"
+
 gem "aws-sdk-s3", require: false
 gem "kaminari"
 gem "omniauth-google-oauth2"
