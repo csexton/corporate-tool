@@ -22,4 +22,5 @@ br
             pre.search-preview.small.text-muted
               - result.content.lines.each_with_index do |line, index|
                 - if line.include? @query
-                  | #{'%3.3s' % index}: #{raw line.gsub(@query, "<strong>#{@query}</strong>")}
+                  = "#{'%3.3s' % index}: "
+                  = highlight_match(line, @query)

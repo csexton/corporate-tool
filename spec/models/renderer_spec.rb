@@ -56,7 +56,7 @@ RSpec.describe Renderer, type: :model do
       |-----------------+------------+-----------------+----------------|
     MARKDOWN
 
-    expect(body).to include("<th style=\"text-align: left\">")
+    expect(body).to include("<th style=\"text-align:left;\">")
     expect(body).to include("<tfoot>")
     expect(body).to include("<thead>")
   end
@@ -65,5 +65,55 @@ RSpec.describe Renderer, type: :model do
     body = renderer.render_markdown("This is :smile:")
 
     expect(body).to include("smile.png")
+  end
+
+  describe "sanitizing" do
+    it "strips script tags and event handlers from raw HTML" do
+      body = renderer.render_markdown(
+        %(hi <img src="x" onerror="alert(1)"> <script>alert(2)</script>)
+      )
+
+      expect(body).not_to include("onerror")
+      expect(body).not_to include("<script")
+      expect(body).to include(%(<img src="x">))
+    end
+
+    it "strips javascript: links" do
+      body = renderer.render_markdown("[click](javascript:alert(1))")
+
+      expect(body).not_to include("javascript:")
+      expect(body).to include("click")
+    end
+
+    it "escapes markup inside mermaid blocks" do
+      body = renderer.render_markdown <<~MARKDOWN
+        ```mermaid
+        </div><script>alert(1)</script>
+        graph TD
+        A --> B
+        ```
+      MARKDOWN
+
+      expect(body).not_to include("<script")
+      expect(body).to include("A --&gt; B")
+    end
+
+    it "keeps heading ids, table alignment, and syntax highlighting" do
+      body = renderer.render_markdown <<~MARKDOWN
+        # Title
+
+        | a |
+        |:--|
+        | 1 |
+
+        ```ruby
+        :sym
+        ```
+      MARKDOWN
+
+      expect(body).to include(%(<h1 id="title">))
+      expect(body).to include(%(<td style="text-align:left;">))
+      expect(body).to include(%(<span class="ss">:sym</span>))
+    end
   end
 end
