@@ -3,14 +3,14 @@ class SessionsController < ApplicationController
 
   def create
     user = User.from_omniauth(request.env['omniauth.auth'])
-    session[:user_id] = user.id
+    sign_in_user(user)
     url = request.env['omniauth.origin'] || root_url
     url = root_url if url.ends_with? welcome_auth_path
     redirect_to url, notice: "Signed in."
   end
 
   def destroy
-    session[:user_id] = nil
+    reset_session
     redirect_to welcome_auth_path, notice: "Signed out."
   end
 
