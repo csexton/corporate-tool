@@ -1,6 +1,18 @@
 require 'kramdown-mermaid-rouge'
 
 class Renderer
+  # Markdown may contain raw HTML, so the rendered output is passed through an
+  # allowlist sanitizer. This strips scripts, event handlers, and dangerous
+  # URL schemes (e.g. javascript:) while keeping the markup kramdown, rouge,
+  # mermaid, and emoji produce.
+  ALLOWED_TAGS = Rails::HTML5::SafeListSanitizer.allowed_tags + %w[
+    table thead tbody tfoot tr th td caption colgroup col
+    details summary s strike u
+  ]
+  ALLOWED_ATTRIBUTES = Rails::HTML5::SafeListSanitizer.allowed_attributes + %w[
+    id style colspan rowspan align
+  ]
+
   def self.markdown(body)
     new.render_markdown(body).html_safe unless body.empty?
   end
@@ -25,6 +37,14 @@ class Renderer
 
   def render_markdown(body)
     opts = { input: 'GFM', syntax_highlighter: :mermaid_rouge}
-    emojify(Kramdown::Document.new(body, opts).to_html)
+    sanitize(emojify(Kramdown::Document.new(body, opts).to_html))
+  end
+
+  private
+
+  def sanitize(html)
+    Rails::HTML5::SafeListSanitizer.new.sanitize(
+      html, tags: ALLOWED_TAGS, attributes: ALLOWED_ATTRIBUTES
+    )
   end
 end

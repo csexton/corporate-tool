@@ -16,13 +16,15 @@ module Kramdown
         def self.call(converter, text, lang, type, call_opts)
           return nil unless converter.options[:enable_mermaid]
           if lang && lang == "mermaid"
-            "<div class=\"mermaid\">\n" << text << "\n</div>"
+            # Escaped so the diagram source can't inject markup; mermaid reads
+            # the element's textContent, so entities decode back to the source.
+            "<div class=\"mermaid\">\n" << CGI.escapeHTML(text) << "\n</div>"
           else
             SyntaxHighlighter::Rouge.call(converter, text, lang, type, call_opts)
           end
         rescue StandardError
           converter.warning("There was an error using Mermaid or Rouge: #{$!.message}")
-          "<div class='alert alert-warning'>#{ $!.message }</div>"
+          "<div class='alert alert-warning'>#{ CGI.escapeHTML($!.message) }</div>"
         end
 
         def self.options(converter, type)

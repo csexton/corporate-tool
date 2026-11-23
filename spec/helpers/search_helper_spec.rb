@@ -1,15 +1,17 @@
 require 'rails_helper'
 
-# Specs in this file have access to a helper object that includes
-# the SearchHelper. For example:
-#
-# describe SearchHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe SearchHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#highlight_match" do
+    it "wraps each match in strong" do
+      expect(helper.highlight_match("a cat and a cat", "cat"))
+        .to eq("a <strong>cat</strong> and a <strong>cat</strong>")
+    end
+
+    it "escapes HTML in the line and the query" do
+      html = helper.highlight_match(%(<img src=x onerror=alert(1)> <b>), "<b>")
+
+      expect(html).to eq("&lt;img src=x onerror=alert(1)&gt; <strong>&lt;b&gt;</strong>")
+      expect(html).to be_html_safe
+    end
+  end
 end
