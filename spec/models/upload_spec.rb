@@ -15,22 +15,44 @@ RSpec.describe Upload, type: :model do
         .and_return(UploadProcessors::S3)
     end
 
-    it "uploads to s3 service" do
-      uploader = UploadProcessors::S3.new(tardis)
+    let(:client) do
+      Aws::S3::Client.new(stub_responses: true, region: "us-east-1",
+                          credentials: Aws::Credentials.new("id", "secret"))
+    end
 
-      # Stub all the things for the AWS SDK API:
-      url = "https://s3.amazonaws.com/corp.radiusnetworks.com/1.png"
-      object_double = double("AWS S3 Object", upload_file: nil, public_url: url)
-      bucket_double = double("AWS S3 Bucket", object: object_double)
-      resource_double = double(Aws::S3::Resource, bucket: bucket_double)
+    around do |example|
+      bucket = ENV["S3_BUCKET"]
+      ENV["S3_BUCKET"] = "corp.example.com"
+      example.run
+    ensure
+      ENV["S3_BUCKET"] = bucket
+    end
 
-      allow(Aws::S3::Resource).to receive(:new)
-        .and_return(resource_double)
+    before do
+      allow(Aws::S3::Client).to receive(:new).and_return(client)
+    end
+
+    it "uploads to s3 service with a public-read ACL" do
+      upload = Upload.create_with_file(tardis, rory)
+
+      expect(upload.valid?).to be true
+      expect(upload.url).to match(%r{\Ahttps://.*corp\.example\.com/.+\.png\z})
+      put = client.api_requests.find { |r| r[:operation_name] == :put_object }
+      expect(put[:params]).to include(bucket: "corp.example.com", acl: "public-read")
+    end
+
+    it "retries without an ACL when the bucket does not allow ACLs" do
+      client.stub_responses(:put_object, [
+        "AccessControlListNotSupported",
+        {}
+      ])
 
       upload = Upload.create_with_file(tardis, rory)
-      expect(upload.valid?).to be true
-      expect(upload.url).to eq url
 
+      expect(upload.valid?).to be true
+      puts_made = client.api_requests.select { |r| r[:operation_name] == :put_object }
+      expect(puts_made.size).to eq 2
+      expect(puts_made.last[:params]).not_to have_key(:acl)
     end
   end
 
