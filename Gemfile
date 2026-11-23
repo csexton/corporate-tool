@@ -1,29 +1,18 @@
 ruby File.open(".ruby-version", "rb") { |f| f.read.chomp }
 source "https://rubygems.org"
 
-gem "rails", "7.0.8.6"
+gem "rails", "~> 8.1.4"
 
 gem "pg"
 gem "pg_search"
 gem "puma"
 gem "redis"
 
-# Former default gems no longer shipped with Ruby 3.4+/4.0
-gem "base64"
-gem "benchmark"
-gem "bigdecimal"
-gem "drb"
-gem "json", "< 3" # ActiveSupport 7.0 passes quirks_mode:, removed in json 3; drop with Rails upgrade
-gem "logger"
-gem "mutex_m"
-gem "ostruct"
-
 gem "aws-sdk-s3", require: false
 gem "kaminari"
 gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
 gem "paper_trail"
-gem "rails_12factor", group: :production
 
 # Markdown
 
@@ -47,7 +36,6 @@ gem "sass-rails"
 
 # Javascript
 
-gem "coffee-rails"
 gem "jquery-rails"
 gem "uglifier", ">= 1.3.0"
 
@@ -58,6 +46,7 @@ group :development, :test do
   gem "database_cleaner"
   gem "dotenv-rails"
   gem "launchy"
+  gem "ostruct"
   gem "pry-byebug"
   gem "pry-rails"
   gem "rspec-rails"
