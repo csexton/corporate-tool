@@ -1,4 +1,6 @@
 class SearchController < ApplicationController
+  before_action :authenticate_user!
+
   def show
     @query = params[:q]
 

@@ -10,26 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_21_163840) do
-
+ActiveRecord::Schema[8.1].define(version: 2026_11_23_200317) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "pages", id: :serial, force: :cascade do |t|
-    t.string "title"
-    t.string "comment"
-    t.string "path"
+    t.string "title", limit: 255
+    t.string "comment", limit: 255
+    t.string "path", limit: 255
     t.text "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "pg_search_documents", id: :serial, force: :cascade do |t|
     t.text "content"
     t.string "searchable_type"
     t.integer "searchable_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id"
   end
 
@@ -39,18 +38,18 @@ ActiveRecord::Schema.define(version: 2019_11_21_163840) do
     t.string "file_name"
     t.integer "file_size_bytes"
     t.string "file_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["user_id"], name: "index_uploads_on_user_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
-    t.string "provider"
-    t.string "uid"
-    t.string "name"
-    t.string "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string "provider", limit: 255
+    t.string "uid", limit: 255
+    t.string "name", limit: 255
+    t.string "email", limit: 255
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "avatar_url"
     t.string "phone_number"
     t.string "slack_username"
@@ -63,7 +62,7 @@ ActiveRecord::Schema.define(version: 2019_11_21_163840) do
     t.string "event", null: false
     t.string "whodunnit"
     t.text "object"
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
