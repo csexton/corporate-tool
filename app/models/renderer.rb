@@ -8,9 +8,13 @@ class Renderer
   ALLOWED_TAGS = Rails::HTML5::SafeListSanitizer.allowed_tags + %w[
     table thead tbody tfoot tr th td caption colgroup col
     details summary s strike u
+    input
   ]
+  # input/type/checked/disabled are for GFM task list checkboxes; forms and
+  # event handlers are still stripped, so inputs can't submit or run script.
   ALLOWED_ATTRIBUTES = Rails::HTML5::SafeListSanitizer.allowed_attributes + %w[
     id style colspan rowspan align
+    type checked disabled
   ]
 
   def self.markdown(body)

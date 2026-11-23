@@ -98,6 +98,13 @@ RSpec.describe Renderer, type: :model do
       expect(body).to include("A --&gt; B")
     end
 
+    it "keeps task list checkboxes" do
+      body = renderer.render_markdown("- [ ] todo\n- [x] done\n")
+
+      expect(body).to include(%(<input type="checkbox" class="task-list-item-checkbox" disabled="disabled">))
+      expect(body).to include(%(checked="checked"))
+    end
+
     it "keeps heading ids, table alignment, and syntax highlighting" do
       body = renderer.render_markdown <<~MARKDOWN
         # Title
