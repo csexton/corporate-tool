@@ -8,9 +8,9 @@ RSpec.describe "Pages", :type => :request do
     end
   end
 
-  let(:rory) {User.create!(name: 'Rory', uid: "1")}
-  let(:valid_attributes) { { path: 'path/to/page', body: 'I am **content**' } }
-  let(:invalid_attributes) { { path: 'bad_page', body: nil} }
+  let(:rory) {User.create!(name: 'Rory Williams', uid: "1")}
+  let(:valid_attributes) { { path: 'companions/amy-pond', body: 'The girl who **waited**' } }
+  let(:invalid_attributes) { { path: 'bad-wolf', body: nil} }
   let(:valid_session) { { user_id: rory.id} }
 
   describe "GET index" do
@@ -27,7 +27,7 @@ RSpec.describe "Pages", :type => :request do
       sign_in rory
       page = Page.create! valid_attributes
       get page_path(page)
-      expect(response.body).to include("I am")
+      expect(response.body).to include("The girl who")
     end
   end
 
@@ -75,14 +75,14 @@ RSpec.describe "Pages", :type => :request do
 
   describe "PUT update" do
     describe "with valid params" do
-      let(:new_attributes) { {path: 'new/path'} }
+      let(:new_attributes) { {path: 'companions/rory-williams'} }
 
       it "updates the requested page" do
         sign_in rory
         page = Page.create! valid_attributes
         put page_path(page), params: {page: new_attributes}
         page.reload
-        expect(page.path).to eq('new/path')
+        expect(page.path).to eq('companions/rory-williams')
       end
 
       it "redirects to the page" do

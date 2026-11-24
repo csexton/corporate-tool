@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Uploads", type: :request do
-  let(:rory) { User.create!(name: 'Rory', uid: "1")}
+  let(:rory) { User.create!(name: 'Rory Williams', uid: "1")}
   let(:tardis) { fixture_file_upload("spec/fixtures/tardis.png") }
   let(:sonic) { fixture_file_upload("spec/fixtures/sonic.png") }
   let(:valid_attributes) { { file: tardis } }
@@ -22,9 +22,62 @@ RSpec.describe "Uploads", type: :request do
   describe "GET show" do
     it "includes the url type in the show page" do
       sign_in rory
-      upload = Upload.create!(url: "http://example.com/image.png", user: rory)
+      upload = Upload.create!(url: "http://example.com/tardis_blueprints.png", user: rory)
       get upload_path(upload)
-      expect(response.body).to include("example.com/image.png")
+      expect(response.body).to include("example.com/tardis_blueprints.png")
+    end
+  end
+
+  describe "GET file" do
+    let(:client) do
+      Aws::S3::Client.new(stub_responses: true, region: "us-east-1",
+                          credentials: Aws::Credentials.new("id", "secret"))
+    end
+
+    around do |example|
+      bucket = ENV["S3_BUCKET"]
+      ENV["S3_BUCKET"] = "black-archive.example.com"
+      example.run
+    ensure
+      ENV["S3_BUCKET"] = bucket
+    end
+
+    before { allow(Aws::S3::Client).to receive(:new).and_return(client) }
+
+    let(:upload) do
+      Upload.create!(url: "https://s3.amazonaws.com/black-archive.example.com/sonic_screwdriver.png",
+                     storage_key: "sonic_screwdriver.png", file_type: "image/png", user: rory)
+    end
+
+    it "requires signing in" do
+      get file_upload_path(upload)
+
+      expect(response).to redirect_to(welcome_auth_path(origin: file_upload_path(upload)))
+    end
+
+    it "redirects to a short-lived presigned S3 URL" do
+      sign_in User.create!(name: "Amy Pond", uid: "2")
+
+      get file_upload_path(upload)
+
+      expect(response.status).to eq 302
+      location = URI(response.location)
+      expect(location.host).to include("amazonaws.com")
+      expect(location.to_s).to include("sonic_screwdriver.png")
+      params = Rack::Utils.parse_query(location.query)
+      expect(params["X-Amz-Expires"]).to eq "300"
+      expect(params["X-Amz-Signature"]).to be_present
+      expect(params["response-content-type"]).to eq "image/png"
+      expect(response.headers["Cache-Control"]).to include("private")
+    end
+
+    it "redirects to the stored URL for uploads not in S3" do
+      sign_in rory
+      local = Upload.create!(url: "/uploads/vortex_manipulator.png", user: rory)
+
+      get file_upload_path(local)
+
+      expect(response).to redirect_to("/uploads/vortex_manipulator.png")
     end
   end
 
@@ -70,7 +123,7 @@ RSpec.describe "Uploads", type: :request do
       sign_in rory
       evil = Rack::Test::UploadedFile.new(
         "spec/fixtures/tardis.png", "image/png",
-        original_filename: "x');alert(1)//</script><script>alert(2).png"
+        original_filename: "dalek');alert(1)//</script><script>alert(2).png"
       )
 
       post uploads_path, params: {upload: {file: evil}, strategy: "iframe"}
@@ -79,7 +132,7 @@ RSpec.describe "Uploads", type: :request do
       expect(nonce).to be_present
       expect(response.body).to include(%(nonce="#{nonce}"))
       expect(response.body).not_to include("</script><script>")
-      expect(response.body).not_to include("x');alert(1)")
+      expect(response.body).not_to include("dalek');alert(1)")
     end
   end
 

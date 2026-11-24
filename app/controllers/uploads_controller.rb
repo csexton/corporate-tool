@@ -12,6 +12,23 @@ class UploadsController < ApplicationController
   def show
   end
 
+  # GET /uploads/1/file
+  #
+  # Pages link here instead of to S3. Any signed-in user can view any upload,
+  # the same as pages; the redirect goes to a presigned URL that expires.
+  def file
+    upload = Upload.find(params[:id])
+
+    if upload.stored_in_s3?
+      expires_in UploadProcessors::S3::PRESIGNED_URL_TTL - 1.minute, public: false
+      redirect_to UploadProcessors::S3.presigned_url(
+        upload.storage_key, **upload.presigned_response_options
+      ), allow_other_host: true
+    else
+      redirect_to upload.url
+    end
+  end
+
   # GET /uploads/new
   def new
     @upload = Upload.new

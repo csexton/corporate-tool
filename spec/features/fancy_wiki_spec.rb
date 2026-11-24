@@ -8,7 +8,7 @@ feature 'wiki does fancy things' do
     sign_in amy
     visit new_page_path
 
-    fill_in "page_path", with: "fancy"
+    fill_in "page_path", with: "gallifrey"
     fill_in "page_body", with: ":smile:"
     click_button "page_save"
 
@@ -19,19 +19,19 @@ feature 'wiki does fancy things' do
     sign_in amy
     visit new_page_path
 
-    fill_in "page_path", with: "fancy"
+    fill_in "page_path", with: "regeneration"
     fill_in "page_body", with: <<-EOF.strip_heredoc
       ``` ruby
-      def method
-        :symbol
+      def regenerate
+        :new_face
       end
       ```
     EOF
     click_button "page_save"
 
     # Check for the classes that pygments adds to the code
-    expect(find('pre .ss')).to have_content("symbol")
-    expect(find('pre .nf')).to have_content("method")
+    expect(find('pre .ss')).to have_content("new_face")
+    expect(find('pre .nf')).to have_content("regenerate")
   end
 
 end

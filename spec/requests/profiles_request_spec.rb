@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Profiles", type: :request do
-  let(:rory) { User.create!(name: 'Rory', uid: "1")}
+  let(:rory) { User.create!(name: 'Rory Williams', uid: "1")}
 
   describe "GET #edit" do
     it "returns http success" do

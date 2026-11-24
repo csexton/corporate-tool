@@ -41,7 +41,31 @@ class Renderer
 
   def render_markdown(body)
     opts = { input: 'GFM', syntax_highlighter: :mermaid_rouge}
-    sanitize(emojify(Kramdown::Document.new(body, opts).to_html))
+    link_uploads(sanitize(emojify(Kramdown::Document.new(body, opts).to_html)))
+  end
+
+  # Page bodies written before uploads went private link straight to the
+  # public S3 URL. Point those at /uploads/:id/file instead, at render time,
+  # so old pages and their saved versions work without rewriting them.
+  UPLOAD_LINK = /\b(href|src)="(https?:\/\/[^"]*amazonaws\.com\/[^"]*)"/
+
+  def link_uploads(html)
+    bucket = UploadProcessors::S3.bucket
+    return html if bucket.blank? || !html.include?("amazonaws.com")
+
+    keys_by_url = {}
+    html.scan(UPLOAD_LINK) do |_attr, url|
+      found_bucket, key = S3Url.parse(CGI.unescapeHTML(url))
+      keys_by_url[url] = key if found_bucket == bucket
+    end
+    return html if keys_by_url.empty?
+
+    ids_by_key = Upload.where(storage_key: keys_by_url.values.uniq).pluck(:storage_key, :id).to_h
+    html.gsub(UPLOAD_LINK) do
+      attr, url = $1, $2
+      id = ids_by_key[keys_by_url[url]]
+      id ? %(#{attr}="#{Rails.application.routes.url_helpers.file_upload_path(id)}") : $&
+    end
   end
 
   private

@@ -1,6 +1,6 @@
 h1 Upload #{@upload.id}
 .image-preview
-  img style="max-width: 100%;" src=@upload.url
+  img style="max-width: 100%;" src=@upload.link_url
 .table-responsive
   table.table.table-striped
     thead
@@ -16,7 +16,7 @@ h1 Upload #{@upload.id}
       tr
         td URL
         td
-          a href=@upload.url = @upload.url
+          a href=@upload.link_url = @upload.link_url
       tr
         td File type
         td = @upload.file_type

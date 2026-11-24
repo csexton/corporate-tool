@@ -9,11 +9,11 @@ feature 'create wiki pages' do
 
     visit root_path
     click_link "add an index page"
-    fill_in "page_body", with: "I am the index body"
+    fill_in "page_body", with: "Bigger on the inside."
     click_button "page_save"
     visit root_path
 
-    expect(page).to have_content "I am the index body"
+    expect(page).to have_content "Bigger on the inside."
   end
 
   scenario 'create sidebar page' do
@@ -21,11 +21,11 @@ feature 'create wiki pages' do
 
     visit root_path
     click_link "add a sidebar page"
-    fill_in "page_body", with: "I am the sidebar body"
+    fill_in "page_body", with: "Allons-y!"
     click_button "page_save"
     visit root_path
 
-    expect(page).to have_content "I am the sidebar body"
+    expect(page).to have_content "Allons-y!"
   end
 
 end

@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Upload, type: :model do
   include ActionDispatch::TestProcess
-  let(:rory) { User.create!(name: 'Rory', uid: "1")}
-  let(:tardis) { fixture_file_upload("spec/fixtures/tardis.png") }
+  let(:rory) { User.create!(name: 'Rory Williams', uid: "1")}
+  let(:tardis) { fixture_file_upload("spec/fixtures/tardis.png", "image/png") }
 
 
   describe "S3 Uploads" do
@@ -22,7 +22,7 @@ RSpec.describe Upload, type: :model do
 
     around do |example|
       bucket = ENV["S3_BUCKET"]
-      ENV["S3_BUCKET"] = "corp.example.com"
+      ENV["S3_BUCKET"] = "black-archive.example.com"
       example.run
     ensure
       ENV["S3_BUCKET"] = bucket
@@ -32,27 +32,31 @@ RSpec.describe Upload, type: :model do
       allow(Aws::S3::Client).to receive(:new).and_return(client)
     end
 
-    it "uploads to s3 service with a public-read ACL" do
+    it "uploads to a private s3 object and keeps the key" do
       upload = Upload.create_with_file(tardis, rory)
 
       expect(upload.valid?).to be true
-      expect(upload.url).to match(%r{\Ahttps://.*corp\.example\.com/.+\.png\z})
+      expect(upload.storage_key).to match(/\A[0-9a-f-]{36}\.png\z/)
+      expect(upload.url).to end_with("black-archive.example.com/#{upload.storage_key}")
       put = client.api_requests.find { |r| r[:operation_name] == :put_object }
-      expect(put[:params]).to include(bucket: "corp.example.com", acl: "public-read")
+      expect(put[:params]).to include(bucket: "black-archive.example.com", key: upload.storage_key,
+                                      content_type: "image/png")
+      expect(put[:params]).not_to have_key(:acl)
     end
 
-    it "retries without an ACL when the bucket does not allow ACLs" do
-      client.stub_responses(:put_object, [
-        "AccessControlListNotSupported",
-        {}
-      ])
-
+    it "links pages to the app instead of S3 once saved" do
       upload = Upload.create_with_file(tardis, rory)
+      upload.save!
 
-      expect(upload.valid?).to be true
-      puts_made = client.api_requests.select { |r| r[:operation_name] == :put_object }
-      expect(puts_made.size).to eq 2
-      expect(puts_made.last[:params]).not_to have_key(:acl)
+      expect(upload.markdown_link).to eq "![tardis.png](/uploads/#{upload.id}/file)"
+    end
+
+    it "shows images inline and downloads everything else" do
+      image = Upload.new(file_type: "image/png", file_name: "sonic_screwdriver.png")
+      other = Upload.new(file_type: "text/html", file_name: "psychic_paper.html")
+
+      expect(image.presigned_response_options).to eq(response_content_type: "image/png")
+      expect(other.presigned_response_options[:response_content_disposition]).to start_with("attachment")
     end
   end
 
@@ -72,18 +76,18 @@ RSpec.describe Upload, type: :model do
   end
 
   it "puts a bang on an image markdown link" do
-    upload = Upload.new url: "https://example.com/image.png",
-                        file_name: "png",
+    upload = Upload.new url: "https://example.com/tardis.png",
+                        file_name: "TARDIS",
                         file_type: "image/png"
 
-    expect(upload.markdown_link).to eq "![png](https://example.com/image.png)"
+    expect(upload.markdown_link).to eq "![TARDIS](https://example.com/tardis.png)"
   end
 
   it "formats a markdown link" do
-    upload = Upload.new url: "https://example.com/file.zip",
-                        file_name: "zip",
+    upload = Upload.new url: "https://example.com/pandorica.zip",
+                        file_name: "The Pandorica",
                         file_type: "application/zip"
 
-    expect(upload.markdown_link).to eq "[zip](https://example.com/file.zip)"
+    expect(upload.markdown_link).to eq "[The Pandorica](https://example.com/pandorica.zip)"
   end
 end
