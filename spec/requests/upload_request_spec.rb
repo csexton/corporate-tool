@@ -64,7 +64,36 @@ RSpec.describe "Uploads", type: :request do
       # This is a ejs-like callback that happens when the form posts to the
       # iframe directly. See uploads.coffee for details.
       expect(response.body).to include "parent.handle_iframe_upload("
+    end
 
+    it "runs the callback under the CSP nonce and escapes the file name" do
+      sign_in rory
+      evil = Rack::Test::UploadedFile.new(
+        "spec/fixtures/tardis.png", "image/png",
+        original_filename: "x');alert(1)//</script><script>alert(2).png"
+      )
+
+      post uploads_path, params: {upload: {file: evil}, strategy: "iframe"}
+
+      nonce = response.headers["Content-Security-Policy"][/'nonce-([^']+)'/, 1]
+      expect(nonce).to be_present
+      expect(response.body).to include(%(nonce="#{nonce}"))
+      expect(response.body).not_to include("</script><script>")
+      expect(response.body).not_to include("x');alert(1)")
+    end
+  end
+
+  describe "Content-Security-Policy" do
+    it "only allows our own scripts" do
+      sign_in rory
+
+      get uploads_path
+
+      csp = response.headers["Content-Security-Policy"]
+      expect(csp).to match(/script-src 'self' 'nonce-[^']+'(;|$)/)
+      expect(csp).not_to include("unsafe-eval")
+      expect(csp).to include("object-src 'none'")
+      expect(csp).to include("frame-ancestors 'self'")
     end
   end
 end
