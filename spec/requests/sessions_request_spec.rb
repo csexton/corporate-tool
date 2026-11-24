@@ -73,8 +73,8 @@ RSpec.describe SessionsController, type: :request do
   it "filters page bodies from the logs" do
     filter = ActiveSupport::ParameterFilter.new(Rails.application.config.filter_parameters)
 
-    filtered = filter.filter("page" => { "path" => "x", "body" => "password: hunter2" })
+    filtered = filter.filter("page" => { "path" => "unit/black-archive", "body" => "Door code: bad wolf" })
 
-    expect(filtered["page"]).to eq("path" => "x", "body" => "[FILTERED]")
+    expect(filtered["page"]).to eq("path" => "unit/black-archive", "body" => "[FILTERED]")
   end
 end
