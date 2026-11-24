@@ -6,7 +6,6 @@ gem "rails", "~> 8.1.4"
 gem "pg"
 gem "pg_search"
 gem "puma"
-gem "redis"
 
 gem "aws-sdk-s3", require: false
 gem "kaminari"
@@ -17,7 +16,6 @@ gem "paper_trail"
 # Markdown
 
 gem "gemoji"
-gem "github-markup", require: "github/markup"
 gem "kramdown"
 gem "kramdown-parser-gfm"
 gem "rouge"
@@ -25,7 +23,6 @@ gem "rouge"
 # Views
 
 gem "jbuilder"
-gem "nested_form"
 gem "slim-rails"
 
 # Assets
@@ -43,7 +40,6 @@ group :development, :test do
   gem "better_errors"
   gem "binding_of_caller"
   gem "capybara"
-  gem "database_cleaner"
   gem "dotenv-rails"
   gem "launchy"
   gem "ostruct"
@@ -55,5 +51,4 @@ end
 group :development do
   gem "pry-rescue"
   gem "pry-stack_explorer"
-  gem "spring"
 end
