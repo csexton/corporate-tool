@@ -123,4 +123,43 @@ RSpec.describe Renderer, type: :model do
       expect(body).to include(%(<span class="ss">:sym</span>))
     end
   end
+
+  describe "links to uploads" do
+    around do |example|
+      bucket = ENV["S3_BUCKET"]
+      ENV["S3_BUCKET"] = "corp.example.com"
+      example.run
+    ensure
+      ENV["S3_BUCKET"] = bucket
+    end
+
+    let!(:upload) do
+      Upload.create!(url: "https://s3.amazonaws.com/corp.example.com/abc.png",
+                     storage_key: "abc.png", file_type: "image/png",
+                     user: User.create!(name: "Rory", uid: "1"))
+    end
+
+    it "points old S3 image and link URLs at the app" do
+      body = renderer.render_markdown(<<~MARKDOWN)
+        ![a](https://s3.amazonaws.com/corp.example.com/abc.png)
+        [download](https://corp.example.com.s3.amazonaws.com/abc.png)
+      MARKDOWN
+
+      expect(body).to include(%(src="/uploads/#{upload.id}/file"))
+      expect(body).to include(%(href="/uploads/#{upload.id}/file"))
+      expect(body).not_to include("amazonaws.com")
+    end
+
+    it "leaves other buckets, unknown keys and plain text alone" do
+      body = renderer.render_markdown(<<~MARKDOWN)
+        ![a](https://s3.amazonaws.com/other-bucket/abc.png)
+        ![b](https://s3.amazonaws.com/corp.example.com/missing.png)
+        `https://s3.amazonaws.com/corp.example.com/abc.png`
+      MARKDOWN
+
+      expect(body).to include("other-bucket/abc.png")
+      expect(body).to include("corp.example.com/missing.png")
+      expect(body).to include("<code>https://s3.amazonaws.com/corp.example.com/abc.png</code>")
+    end
+  end
 end

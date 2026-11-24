@@ -28,6 +28,59 @@ RSpec.describe "Uploads", type: :request do
     end
   end
 
+  describe "GET file" do
+    let(:client) do
+      Aws::S3::Client.new(stub_responses: true, region: "us-east-1",
+                          credentials: Aws::Credentials.new("id", "secret"))
+    end
+
+    around do |example|
+      bucket = ENV["S3_BUCKET"]
+      ENV["S3_BUCKET"] = "corp.example.com"
+      example.run
+    ensure
+      ENV["S3_BUCKET"] = bucket
+    end
+
+    before { allow(Aws::S3::Client).to receive(:new).and_return(client) }
+
+    let(:upload) do
+      Upload.create!(url: "https://s3.amazonaws.com/corp.example.com/abc.png",
+                     storage_key: "abc.png", file_type: "image/png", user: rory)
+    end
+
+    it "requires signing in" do
+      get file_upload_path(upload)
+
+      expect(response).to redirect_to(welcome_auth_path(origin: file_upload_path(upload)))
+    end
+
+    it "redirects to a short-lived presigned S3 URL" do
+      sign_in User.create!(name: "Amy", uid: "2")
+
+      get file_upload_path(upload)
+
+      expect(response.status).to eq 302
+      location = URI(response.location)
+      expect(location.host).to include("amazonaws.com")
+      expect(location.to_s).to include("abc.png")
+      params = Rack::Utils.parse_query(location.query)
+      expect(params["X-Amz-Expires"]).to eq "300"
+      expect(params["X-Amz-Signature"]).to be_present
+      expect(params["response-content-type"]).to eq "image/png"
+      expect(response.headers["Cache-Control"]).to include("private")
+    end
+
+    it "redirects to the stored URL for uploads not in S3" do
+      sign_in rory
+      local = Upload.create!(url: "/uploads/local.png", user: rory)
+
+      get file_upload_path(local)
+
+      expect(response).to redirect_to("/uploads/local.png")
+    end
+  end
+
   describe "GET new" do
     it "includes the title in the new page" do
       sign_in rory

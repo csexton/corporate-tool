@@ -1,1 +1,1 @@
-json.filename @upload.url
+json.filename @upload.link_url
