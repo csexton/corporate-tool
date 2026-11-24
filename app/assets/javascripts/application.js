@@ -11,7 +11,7 @@
 // about supported directives.
 //
 //= require modernizr
-//= require jquery
+//= require jquery3
 //= require jquery_ujs
 //
 //= require bootstrap/util
