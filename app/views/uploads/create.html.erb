@@ -1,7 +1,7 @@
 <html>
   <head>
-    <script>
-      parent.handle_iframe_upload('<%= raw @upload.markdown_link %>');
-    </script>
+    <%= javascript_tag nonce: true do %>
+      parent.handle_iframe_upload(<%= raw json_escape(@upload.markdown_link.to_json) %>);
+    <% end %>
   </head>
 </html>
